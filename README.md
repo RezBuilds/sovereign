@@ -68,7 +68,7 @@ At time of writing the Bitcoin blockchain is around 600GB of data so you will al
 - Ledger Live
 
 ### Recent Software Updates (July 2025)
-- **Bitcoin Knots 28.1.knots20250305: March 2025 with enhanced features, more conservative policies, and additional privacy options compared to Bitcoin Core
+- **Bitcoin Knots 28.1.knots20250305: March 2025 with enhanced features, more conservative policies, and additional privacy options compared to Bitcoin Core**
 - **Electrum 4.5.8**: Enhanced security patches, Nostr support for submarine swaps, improved stability
 - **Sparrow 2.2.3**: Better hardware wallet support (OneKey Pro, Trezor Safe 5, Ledger Stax/Flex), improved QR scanning, enhanced fee management
 - **Ubuntu 24.04 LTS**: Latest stable release with support until 2029, improved hardware compatibility
