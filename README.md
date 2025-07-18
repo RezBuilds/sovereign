@@ -1,5 +1,5 @@
 # Sovereign - Personal Bitcoin Node
-last updated: 17th July 2025.
+last updated: 18th July 2025.
 
 [![Watch Intro Video](https://github.com/www-codeblock-io/Sovereign/blob/main/repo_resources/video_intro.png)](https://www.youtube.com/watch?v=lkLX7CVw-Og)
 
@@ -52,7 +52,7 @@ At time of writing the Bitcoin blockchain is around 600GB of data so you will al
 
 ---
 ## SOFTWARE
-- Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 - Bitcoin Knots (enhanced Bitcoin implementation with additional features)
 - Tor
 - ProtonVPN
@@ -72,8 +72,8 @@ ___
 For all Bitcoin software, it’s a particularly important security step to verify the release. This is done to ensure the installation file you download has not been compromised. Follow download instructions and use gpg in the terminal as instructed.
 
 ___
-# Install Ubuntu 22.04 LTS
-I installed Ubuntu 22.04 LTS because at the time of install, the Tor project had not released support for Ubuntu 24.04 LTS.
+# Install Ubuntu 24.04 LTS
+I installed Ubuntu 24.04 LTS as it's the latest stable LTS release, providing security updates until 2029.
 
 ## Deactivate Secure-Boot
 If repurposing an old Windows laptop, Deactivate Secure-Boot.
@@ -83,8 +83,8 @@ Secure boot signing authorities have made mistakes in the past ([section 3, page
 1. Press the laptops power-on button then immediatly press the Function key that enters the Bios menu. For the HP Laptop I'm using it was the F2 key. [Bios key by manufacturer. ](https://gadgetmates.com/bios-key-by-manufacturer)
 2. Once the system Bios has loaded, proceed to turn-off ```Secure Boot``` (usually located under the ```security``` tab), save and exit. Then turn-off the laptop.
 
-3. On a seperate PC head over to [Ubuntu Releases](https://releases.ubuntu.com/jammy/ "Ubuntu releases") and download the following three files: 
-   - ```Ubuntu-22.04.4-desktop-amd64.iso```
+3. On a seperate PC head over to [Ubuntu Releases](https://releases.ubuntu.com/noble/ "Ubuntu releases") and download the following three files: 
+   - ```Ubuntu-24.04.4-desktop-amd64.iso```
    - ```SHA256SUMS```
    - ```SHA256SUMS.gpg``` 
 
@@ -116,13 +116,16 @@ Now open the SHA256SUMS.txt file in your Downloads folder and compare the SHA256
    sha256sum -c SHA256SUMS 2>&1 | grep OK
    ```
    The output you want will look similar to the following:
-      ```ubuntu-22.04.4-desktop-amd64.iso: OK```
+      ```ubuntu-24.04.4-desktop-amd64.iso: OK```
 
 
 ## Complete install
-Follow the [official](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick "https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick") installation instructions to install Ubuntu.
+Follow the [official]
+.(https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/ "https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/").
+installation instructions to install Ubuntu.
 
-[Create partition table](https://ubuntuhandbook.org/index.php/2022/04/install-ubuntu-2204-step-by-step/amp/ "Ubuntuhandbook.org") (not always required).
+[Create partition table]
+.(https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick "https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick"). (not always required).
 
 
 ## Reusing bootable USB
@@ -157,7 +160,7 @@ Once Installation has finished.
 ## Install Libfuse
 [Official website](https://github.com/AppImage/AppImageKit/wiki/FUSE)
 
-Ubuntu 22.04 LTS dependencies to run Specter and Ledger-Live apps.
+Ubuntu 24.04 LTS dependencies to run Specter and Ledger-Live apps.
 1. Install libfuse2
    ```bash copy
    sudo add-apt-repository universe && sudo apt install libfuse2
@@ -1181,7 +1184,7 @@ If you are still using Ledger or needing access to to the Ledger Live suite then
    ```
    wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/master/add_udev_rules.sh | sudo bash
    ```
-2. Install Ubuntu 22.04 dependency
+2. Install Ubuntu 24.04 LTS dependency
    ```bash copy
    sudo add-apt-repository universe
    ```
