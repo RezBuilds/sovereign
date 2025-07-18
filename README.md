@@ -53,20 +53,26 @@ At time of writing the Bitcoin blockchain is around 600GB of data so you will al
 ---
 ## SOFTWARE
 - Ubuntu 24.04 LTS
-- Bitcoin Knots (enhanced Bitcoin implementation with additional features)
+- Bitcoin Knots 28.1
 - Tor
 - ProtonVPN
 - Electrs
-- Electrum wallet
-- Specter wallet
-- Sparrow wallet
+- Electrum 4.5.8
+- Specter Desktop
+- Sparrow 2.2.3
 
 (optional)
-- Brave-Browser
+- Brave Browser
 - Mullvad VPN
-- Telegram
+- Telegram Desktop
 - Ledger Live
-  
+
+### Recent Software Updates (July 2025)
+- **Bitcoin Knots 28.1.knots20250305: March 2025 with enhanced features, more conservative policies, and additional privacy options compared to Bitcoin Core
+- **Electrum 4.5.8**: Enhanced security patches, Nostr support for submarine swaps, improved stability
+- **Sparrow 2.2.3**: Better hardware wallet support (OneKey Pro, Trezor Safe 5, Ledger Stax/Flex), improved QR scanning, enhanced fee management
+- **Ubuntu 24.04 LTS**: Latest stable release with support until 2029, improved hardware compatibility
+
 ___
 ## VERIFY & INSTALL SOFTWARE
 For all Bitcoin software, it’s a particularly important security step to verify the release. This is done to ensure the installation file you download has not been compromised. Follow download instructions and use gpg in the terminal as instructed.
@@ -120,12 +126,10 @@ Now open the SHA256SUMS.txt file in your Downloads folder and compare the SHA256
 
 
 ## Complete install
-Follow the [official]
-.(https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/ "https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/").
+Follow the [official](https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/ "https://ubuntuhandbook.org/index.php/2024/04/install-ubuntu-24-04-desktop/amp/")
 installation instructions to install Ubuntu.
 
-[Create partition table]
-.(https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick "https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick"). (not always required).
+[Create partition table](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick "https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick") (not always required).
 
 
 ## Reusing bootable USB
@@ -303,15 +307,15 @@ Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 
 1. Unzip the bitcoin knots folder (adjust filename for current version)
    ```bash copy
-   tar xzf bitcoin-28.0.knots20240914-x86_64-linux-gnu.tar.gz
+   tar xzf bitcoin-28.1.knots20250305-x86_64-linux-gnu.tar.gz
    ```
 2. Install bitcoin knots
    ```bash copy
-   sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-28.0.knots20240914/bin/*
+   sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-28.1.knots20250305/bin/*
    ```
 3. Clean up (adjust filenames as needed)
    ```bash copy
-   cd ~/Downloads && sudo rm -r bitcoin-28.0.knots20240914-x86_64-linux-gnu.tar.gz SHA256SUMS.asc SHA256SUMS
+   cd ~/Downloads && sudo rm -r bitcoin-28.1.knots20250305-x86_64-linux-gnu.tar.gz SHA256SUMS.asc SHA256SUMS
    ```
 
 ---
@@ -404,6 +408,7 @@ You can easily switch between Bitcoin Core and Bitcoin Knots:
   
 ---
 # Install Tor
+**Last updated: July 2025**
 [Official website](https://support.torproject.org/apt/tor-deb-repo/)
 
 "Browse Privately. Explore Freely.
@@ -431,8 +436,8 @@ Defend yourself against tracking and surveillance. Circumvent censorship." - Tor
    ```
 6. Add the following entries inside the file, save and close
    ```bash copy
-      deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
-      deb-src [arch=<amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org jammy main
+   deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org noble main
+   deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org noble main
    ```
 7. Add Tor gpg key used to sign the packages
    ```bash copy
@@ -757,24 +762,21 @@ Electrum was first released as open-source back in 2011, making it one of the mo
    ```
 3. Download package
    ```bash copy
-   wget https://download.electrum.org/4.5.5/Electrum-4.5.5.tar.gz
+   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz
    ```
-4. Verify signitures
+4. Verify signatures
    ```bash copy
-   wget https://download.electrum.org/4.5.5/Electrum-4.5.5.tar.gz.asc && gpg --verify Electrum-4.5.5.tar.gz.asc
+   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz.asc && gpg --verify Electrum-4.5.8.tar.gz.asc
    ```
 5. Install with pip
    ```bash copy
-   sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.5.tar.gz
+   sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.8.tar.gz
    ```
 6. Clean up
    ```bash copy
-   cd ~/Downloads && sudo rm -r Electrum-4.5.5.tar.gz Electrum-4.5.5.tar.gz.asc ThomasV.asc
+   cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc ThomasV.asc
    ```
-7. System Restart
-   ```bash copy
-   sudo shutdown -r now
-   ```   
+
 
 ---
 ## Configure Electrum
@@ -876,7 +878,7 @@ Specter is an open-source Bitcoin wallet, first released June 2020. It offers an
 
 ## Install Python 3.10 for Specter Compatibility
 
-Bitcoin Knots 28.0 requires a newer version of Specter than the current binary releases support. We'll install Specter via Python virtual environment for the latest compatible version.
+Bitcoin Knots 28.1 requires a newer version of Specter than the current binary releases support. We'll install Specter via Python virtual environment for the latest compatible version.
 
 - Add deadsnakes PPA for Python 3.10. Run:
 ```bash copy
@@ -1113,7 +1115,13 @@ Sparrow is an open-source Bitcoin wallet, first released September 2020, offerin
    ```bash copy
    dpkg --print-architecture
    ```
-2. Head over to [hear](https://sparrowwallet.com/download/) and download the installation file that matches your architecture. Save to Downloads folder.
+2. Head over to [Sparrow Downloads](https://sparrowwallet.com/download/) and download:
+   - sparrow_2.2.3-1_amd64.deb (for Ubuntu 24.04)
+   - sparrow-2.2.3-manifest.txt
+   - sparrow-2.2.3-manifest.txt.asc
+   
+   Save all files to your Downloads folder.
+   
 3. Scroll the Sparrow/Downloads page and follow the instruction under the heading ```Verifying the release``` to verify your download. It doesnt make sense to install software then use that software to verify itself so we will verify manually using gpg. Scroll down the official Sparrow download page further for the manual vefification instructions using gpg.
 4. Download and import craigraw/pgp_keys.asc
    ```bash copy
@@ -1121,18 +1129,18 @@ Sparrow is an open-source Bitcoin wallet, first released September 2020, offerin
    ```
 5. Verify the signature of the manifest file
    ```bash copy
-   cd ~/Downloads && gpg --verify sparrow-2.0.0-manifest.txt.asc
+   cd ~/Downloads && gpg --verify sparrow-2.2.3-manifest.txt.asc
    ```
 6. Verify the download file
    ```bash copy
-   sha256sum --check sparrow-2.0.0-manifest.txt --ignore-missing
+    sha256sum --check sparrow-2.2.3-manifest.txt --ignore-missing
    ```
    If you recieve the ```OK``` result to your terminal then the solftware is authentic and safe to install. This also means that we can now use Sparrows veification feature to easily verify future software from the GUI interface if we wish.
    
 ## Install and configure  
 7. Navigate to Downloads folder and install the downloaded .deb file. This will save the app to your ```Show Applications``` folder, that can be accessed from your Desktop.
    ```bash copy
-   cd ~/Downloads && sudo dpkg -i <NAME_OF_FILE>.deb  
+   cd ~/Downloads && sudo dpkg -i sparrow_2.2.3-1_amd64.deb  
    ```
 8. Start Sparrow by double clicking the app icon.
 9. Read the welcome messages and then choose ```Server: type```, ```Private Electrum``` (the blue toggle switch).
@@ -1145,15 +1153,28 @@ Sparrow is an open-source Bitcoin wallet, first released September 2020, offerin
 11. Make sure Bitcoin Knots and Electrs are running then click on the    
 ```Test Connection``` button. You should be greeted with the following text:
     ```
-    Connected to electrs/0.10.5 on protocol version 1.4
+    Connected to electrs/0.10.x on protocol version 1.4
     Batched RPC enabled.
-    Server Banner: Welcome to electrs 0.10.5 (Electrum Rust Server)!
+    Server Banner: Welcome to electrs 0.10.x (Electrum Rust Server)!
     ```
 12. Clean up, delete old files/directories
     ```bash copy
-    cd ~/Downloads && rm -r sparrow_2.0.0-1_amd64.deb sparrow-2.0.0-manifest.txt.asc	sparrow-2.0.0-manifest.txt
+     cd ~/Downloads && rm -r sparrow_2.2.3-1_amd64.deb sparrow-2.2.3-manifest.txt.asc sparrow-2.2.3-manifest.txt
     ```
+### Important: Linux Package Rename
+**Note for Linux users:** The Sparrow package has been renamed from `sparrow` to `sparrowwallet` starting with version 2.2.0. If you have an older version installed, you may need to:
 
+13. Remove the old package:
+    ```bash
+    sudo apt remove sparrow
+    # Check if old files exist and remove manually:
+    sudo rm -rf /opt/sparrow
+    ```
+14. Verify the new installation is in the correct location. Run:
+    ```bash copy
+    ls /opt/sparrowwallet
+    ```
+       
 Read Sparrows official [docs](https://sparrowwallet.com/docs/) to get the most out of the software wallets functionality. 
 
 ---
