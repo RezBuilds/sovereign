@@ -1,5 +1,5 @@
 # Sovereign - Personal Bitcoin Node
-last updated: 9th November 2024.
+last updated: 17th July 2025.
 
 [![Watch Intro Video](https://github.com/www-codeblock-io/Sovereign/blob/main/repo_resources/video_intro.png)](https://www.youtube.com/watch?v=lkLX7CVw-Og)
 
@@ -33,7 +33,7 @@ with a few personal additions...
 ---
 ## HARDWARE
 
-Bitcoin Core [minimum requirements](https://bitcoin.org/en/bitcoin-core/features/requirements)
+Bitcoin Knots [minimum requirements](https://bitcoin.org/en/bitcoin-core/features/requirements)
 - Ram: 1GB
 - CPU: Some ARM chipsets >1.GHz
 - HDD: 650GB (however large the Bitcoin blockchain currently is.)
@@ -53,7 +53,7 @@ At time of writing the Bitcoin blockchain is around 600GB of data so you will al
 ---
 ## SOFTWARE
 - Ubuntu 22.04 LTS
-- Bitcoin-Core
+- Bitcoin Knots (enhanced Bitcoin implementation with additional features)
 - Tor
 - ProtonVPN
 - Electrs
@@ -131,6 +131,8 @@ Flashing a USB drive with an ISO image will place a write protection on the USB 
 
 ---
 # Tip - Linux keyboard shortcuts.
+- Display Desktop: ```WINDOWS KEY+D```
+  
 - Open a new Terminal window: ```CTRL+ALT+T```
 
 - Copy text in the Terminal: ```CTRL+SHIFT+C```
@@ -287,58 +289,52 @@ A quick solution for encrypted files/messages.
    ```
 
 ---
-# Install Bitcoin Core
-Head over to [Bitcoin Core](https://bitcoincore.org/en/download/ "Bitcoincore.org") and:
-- Download ```Linux(tgz) 64 bit``` and save to Downloads folder.
-- Scroll down the page, under the heading ```Verify your download```, click on ```Linux verification instructions```, then follow the instructions to verify your download.
+# Install Bitcoin Knots
+Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
+- Download the latest Linux(tgz) 64 bit version and save to Downloads folder
+- Bitcoin Knots is a derivative of Bitcoin Core with enhanced features, more conservative policies, and additional privacy options
+- Follow the verification instructions on the Bitcoin Knots website to verify your download using GPG signatures
 
 ## Complete install
 [Reference Link](https://bitcoin.org/en/full-node#linux-instructions "Bitcoin.org")
 
-1. Unzip the bitcoin folder
+1. Unzip the bitcoin knots folder (adjust filename for current version)
    ```bash copy
-   tar xzf bitcoin-28.0-x86_64-linux-gnu.tar.gz
+   tar xzf bitcoin-28.0.knots20240914-x86_64-linux-gnu.tar.gz
    ```
-2. Install bitcoin core
+2. Install bitcoin knots
    ```bash copy
-   sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-28.0/bin/*
+   sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-28.0.knots20240914/bin/*
    ```
-3. Clean up
+3. Clean up (adjust filenames as needed)
    ```bash copy
-   cd ~/Downloads && sudo rm -r bitcoin-28.0-x86_64-linux-gnu.tar.gz guix.sigs SHA256SUMS.asc SHA256SUMS
+   cd ~/Downloads && sudo rm -r bitcoin-28.0.knots20240914-x86_64-linux-gnu.tar.gz SHA256SUMS.asc SHA256SUMS
    ```
 
 ---
-## Run Bitcoin Core (start initial blockchain download)
-Plug in your external 2T SSD drive.
+## Run Bitcoin Knots (start initial blockchain download)
 
-1. Then start Bitcoin Core. Run:
+1. Start Bitcoin Knots. Run:
    ```bash copy
    bitcoin-qt
    ``` 
-   You will be greated with the Bitcoin Core Welcome screen, it is here that we will let Bitcoin Core know where our external SSD drive is located if you are using one. If not just keep the default settings.
+   You will be greated with the Bitcoin Knots Welcome screen.
 
 2. Uncheck ```Limit block chain storage```. We want to download the complete Bitcoin blockchain from the genisis block.
 3. Click ```OK```.
 
-Bitcoin Core will now create the main ```data-directory``` in a hidden folder .bitcoin inside your home directory. It is here that all Bitcoin Core configuaration files will be stored along with the complete blockchain data. Get familiar with this ```data-directory``` (home/USERNAME/.bitcoin) location as we will be accessing it again later.
+Bitcoin Knots will now create the main ```data-directory``` in a hidden folder .bitcoin inside your home directory. It is here that all Bitcoin Knots configuaration files will be stored along with the complete blockchain data. Get familiar with this ```data-directory``` (home/USERNAME/.bitcoin) location as we will be accessing it again later.
 
-If you have trouble locating your external SSD Drive (if using one), try the following, open a new Terminal. Run:
-   ```bash copy
-   cd /media && dir
-   ```
-   You should see your user directory listed, ```cd``` into this dir which should contain your external drive.
-
-4. Leave the laptop power plugged in and wait for the Bitcoin blockchain to download, Bitcoin Core will show a % complete and a rough estimate of how much time remains until completion.
+4. Leave the laptop power plugged in and wait for the Bitcoin blockchain to download, Bitcoin Knots will show a % complete and a rough estimate of how much time remains until completion.
 
 
 ---
-## Configure Bitcoin Core
-1. Once Bitcoin core is fully synced you will be greeted with a welcome screen asking if you would like to ```Create a new wallet```. Proceed to create a standard wallet. 
+## Configure Bitcoin Knots
+1. Once Bitcoin Knots is fully synced you will be greeted with a welcome screen asking if you would like to ```Create a new wallet```. Proceed to create a standard wallet. 
 
-2. Then edit Bitcoin Core config file.
+2. Then edit Bitcoin Knots config file.
 
-3. From the Bitcoin Core GUI click on ```Settings```, ```Options```, then ```Open Configuration File```.
+3. From the Bitcoin Knots GUI click on ```Settings```, ```Options```, then ```Open Configuration File```.
 
 4. Enter the below text, save and exit
    ```bash copy
@@ -357,7 +353,7 @@ If you have trouble locating your external SSD Drive (if using one), try the fol
    # only connect to Tor hidden services, not even IPv4/IPv6 nodes
    onlynet=onion
   
-   # Electrs can use the .cookie setting to connect to Bitcoin Core
+   # Electrs can use the .cookie setting to connect to Bitcoin Knots
    # but Specter can not and requires the rpcuser/rpcpassword to be set.
    rpcuser=<User>
    rpcpassword=<Password>
@@ -366,12 +362,12 @@ If you have trouble locating your external SSD Drive (if using one), try the fol
    # rebroadcasting transactions without tor.
    walletbroadcast=0
    
-5. Now shut down Bitcoin Core so that the config changes we made can be applied. Click on the ```X``` in the top right hand corner. Or enter the below command in any Terminal window:
+5. Now shut down Bitcoin Knots so that the config changes we made can be applied. Click on the ```X``` in the top right hand corner. Or enter the below command in any Terminal window:
    ```bash copy
    bitcoin-cli stop
    ```
 ## Allow incoming connections (optional but recommended)
-Configure your WIFI router to allow Bitcoin core incoming connections on port:8332. Make a note of both your MAC and IP address then follow the instructions in this [Link](https://bitcoin.org/en/full-node#network-configuration)
+Configure your WIFI router to allow Bitcoin Knots incoming connections on port:8332. Make a note of both your MAC and IP address then follow the instructions in this [Link](https://bitcoin.org/en/full-node#network-configuration)
 
 Retrieve your Laptops MAC address and IP address from the Terminal. 
 
@@ -394,6 +390,15 @@ Retrieve your Laptops MAC address and IP address from the Terminal.
    ```bash copy
    sudo netstat --ip -lpa|grep bitcoin
    ```
+
+## Switching Between Bitcoin Core and Bitcoin Knots
+
+You can easily switch between Bitcoin Core and Bitcoin Knots:
+- Both use the same data directory (~/.bitcoin)
+- Both use identical configuration files
+- Simply install the other version and replace the binaries
+- No need to re-download the blockchain
+  
 ---
 # Install Tor
 [Official website](https://support.torproject.org/apt/tor-deb-repo/)
@@ -459,7 +464,7 @@ Defend yourself against tracking and surveillance. Circumvent censorship." - Tor
 
 ---
 ## Set up Tor hidden service
-Configure Bitcoin Core to only connect using Tor. [Reference link](
+Configure Bitcoin Knots to only connect using Tor. [Reference link](
 https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service)
 
 Additional video tutorial, for further reference: [Canadian Bitcoiners](
@@ -479,11 +484,11 @@ https://www.youtube.com/watch?v=goTkOt8Rr1Q&list=PLZqQw4mLW-r3UEyL12FG4koZq6lOLs
    CookieAuthentication 1
    CookieAuthFileGroupReadable 1
    ```
-4. Check what your Bitcoin Core user name is
+4. Check what your Bitcoin Knots user name is
    ```bash copy
    ps -eo user,group,comm |egrep 'bitcoind|bitcoin-qt' |awk '{print "Bitcoin user: " $1}'
    ```
-5. Now add your Bitcoin Core user name to your Tor group. For example my command would be ```sudo usermod -a -G debian-tor rez``` as my Bitcoin user name is rez.
+5. Now add your Bitcoin Knots user name to your Tor group. For example my command would be ```sudo usermod -a -G debian-tor rez``` as my Bitcoin user name is rez.
    ```bash copy
    sudo usermod -a -G debian-tor <user name found from above command>
    ```
@@ -492,7 +497,7 @@ https://www.youtube.com/watch?v=goTkOt8Rr1Q&list=PLZqQw4mLW-r3UEyL12FG4koZq6lOLs
    getent group
    ```
    
-The above configuration sets up an automatic hidden service that is initiated by Bitcoin Core. On the next startup of bitcoin, Bitcoin Core will generate a file called ```onion_private_key``` in the data directory. KEEP THIS SAFE. If someone copies this file they can run a server with your .onion address. While a malicious party cannot necessarily associate the server with you as a person, as long as your server has the same xxxx.onion address they will know it is run by the same person.
+The above configuration sets up an automatic hidden service that is initiated by Bitcoin Knots. On the next startup of bitcoin, Bitcoin Knots will generate a file called ```onion_private_key``` in the data directory. KEEP THIS SAFE. If someone copies this file they can run a server with your .onion address. While a malicious party cannot necessarily associate the server with you as a person, as long as your server has the same xxxx.onion address they will know it is run by the same person.
 
 If you delete this file, the next time bitcoind loads it will generate a new key file and xxxxxxxx.onion address.  For absolute security delete your ```onion_private_key``` file at each reboot or some frequent interval.
 
@@ -501,8 +506,8 @@ If you delete this file, the next time bitcoind loads it will generate a new key
    sudo shutdown -r now
    ```
 
-## Verify Bitcoin Core uses Tor. Option: 1
-1. Start Bitcoin Core GUI 
+## Verify Bitcoin Knots uses Tor. Option: 1
+1. Start Bitcoin Knots GUI 
    ```bash copy
    bitcoin-qt
    ```
@@ -510,8 +515,8 @@ If you delete this file, the next time bitcoind loads it will generate a new key
 3. Click on the ```Peers``` tab.
    You should now see a list of all the Bitcoin peers that your node is connected too. Under the ```Network``` column all the row values should say ```Onion```, meaning you are only connected to    peers over the onion ntwork. 
 
-## Verify Bitcoin Core uses Tor. Option: 2
-1. Check Bitcoin Core ```NetworkInfo```. From the Bitcoin Core GUI click 'Window' tab, 'Consol', then type the below command after the ```>``` and press enter.
+## Verify Bitcoin Knots uses Tor. Option: 2
+1. Check Bitcoin Knots ```NetworkInfo```. From the Bitcoin Knots GUI click 'Window' tab, 'Consol', then type the below command after the ```>``` and press enter.
    ```bash copy
    getnetworkinfo
    ```
@@ -528,14 +533,14 @@ If you delete this file, the next time bitcoind loads it will generate a new key
          "reachable": true
    ```
 
-## Verify Bitcoin Core uses Tor. Option: 3
-You will learn a lot about what Bitcoin Core is doing during start-up and shut-down if you watch the debug.log file.
+## Verify Bitcoin Knots uses Tor. Option: 3
+You will learn a lot about what Bitcoin Knots is doing during start-up and shut-down if you watch the debug.log file.
 
 1. Navigate to you main Bitcoin data-directory. 
    ```bash copy
    cd ~/.bitcoin
    ```
-2. Ooen a new Terminal window, will will call this 'Terminal 1'. Activate tail on the Bitcoin Core debug.log file with a grep on Tor.
+2. Ooen a new Terminal window, will will call this 'Terminal 1'. Activate tail on the Bitcoin Knots debug.log file with a grep on Tor.
    ```bash copy
    tail -f debug.log | grep tor
    ```
@@ -543,7 +548,7 @@ You will learn a lot about what Bitcoin Core is doing during start-up and shut-d
     ```bash copy
     bitcoind --daemon --debug=tor
     ```
-3. Watch the debug file output printed in Terminal 1. You will see ```Tor: ADD_ONION successful``` and a lot of other Tor actions printed to the Terminal that Bitcoin Core completed during start-up including starting a ```Tor control thread```, opening a ```Tor connection``` and finally connecting to the Tor network using your Tor encryption key.
+3. Watch the debug file output printed in Terminal 1. You will see ```Tor: ADD_ONION successful``` and a lot of other Tor actions printed to the Terminal that Bitcoin Knots completed during start-up including starting a ```Tor control thread```, opening a ```Tor connection``` and finally connecting to the Tor network using your Tor encryption key.
 
 
 ---
@@ -685,11 +690,11 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
 
    ```
 ## Build Electrs server index
-6. Check size of current Bitcoin Core block directory
+6. Check size of current Bitcoin Knots block directory
    ```bash copy
    du -ch ~/.bitcoin/blocks/blk*.dat | tail -n1
    ```
-   This will print the size of the existing Bitcoin Core block directory. The final Electrs index DB will be about 10-20% the size of the Bitcoin Core block directory.
+   This will print the size of the existing Bitcoin Knots block directory. The final Electrs index DB will be about 10-20% the size of the Bitcoin Knots block directory.
 
 7. Start Bitcoind and wait for bitcoind to complete initial sync.
    ```bash copy
@@ -705,7 +710,7 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
    ```bash copy
    electrs --log-filters INFO
    ```
-10. Check final size of Electrs server index DB (should be around 10% the size of the Bitcoin Core block directory we checked earlier).
+10. Check final size of Electrs server index DB (should be around 10% the size of the Bitcoin Knots block directory we checked earlier).
    ```bash copy
    du ~/electrs/db
    ```
@@ -826,7 +831,7 @@ We will create a new test (hot) wallet in Electrum to confirm and verify our con
 10. Electrum - enable update check. Click ```No```. We will always verify and update our software ourselves.
 
 ## Add some watch-only addresses
-We will use these to confirm Electrs & Bitcoin Core are connected correctly.
+We will use these to confirm Electrs & Bitcoin Knots are connected correctly.
 1. From the Electrum window press CTRL+N, this will bring up the ```New/Restore``` menu.
 2. Choose a name for your wallet, you can just name the wallet something like ```satoshi_address``` or ```mr100```. Click ```Next```.
 3. Select ```Import Bitcoin addresses or private keys```, click ```Next```.
@@ -845,16 +850,16 @@ Footnote: Although it's great to watch something smash buy bitcoin in blocks of 
 _"I'm taking steps to sell the remaining 72,572 bitcoins responsibly! 💼 No deals with organised crime, third parties, or middlemen - just direct transactions with integrity. Selling in lots of 100 for transparency only. Let's keep it real & legal in the crypto world!💰" - Gummo_
 
 ---
-# Launch Bitcoin-Core, Electrs & Electrum
-1. Start Bitcoin-Core by running ```bitcoin-qt``` to use the GUI or to run a daemon. Run:
+# Launch Bitcoin Knots, Electrs & Electrum
+1. Start Bitcoin Knots by running ```bitcoin-qt``` to use the GUI or to run a daemon. Run:
    ```bash copy
    bitcoind -datadir=/media/<User>\<External_SSD_Name> -server -daemon
    ```
-2. Start Electra once Bitcoin Core has fully loaded
+2. Start Electrs once Bitcoin Knots has fully loaded
    ```bash copy
    electrs --log-filters INFO --network bitcoin --db-dir ~/electrs/db --daemon-dir /media/<User>\<External_SSD_Name>
    ```
-5. Start Electrum once Electra has fully indexed and is at te blockchain tip. You can check this by looking at the Terminal printout and waiting for the ```INFO electrs::chain chain updated```. Electrum will not sync until Electrs has synced to the tip of the Blockchain. So wait for the ```INFO electrs::chain chain updated``` and you are good to launch Electrum.
+5. Start Electrum once Electrs has fully indexed and is at te blockchain tip. You can check this by looking at the Terminal printout and waiting for the ```INFO electrs::chain chain updated```. Electrum will not sync until Electrs has synced to the tip of the Blockchain. So wait for the ```INFO electrs::chain chain updated``` and you are good to launch Electrum.
    ```bash copy
    electrum
    ```
@@ -866,55 +871,184 @@ If the ```Network``` light in the bottom righthand corner of Electrum GUI is blu
 
 Specter is an open-source Bitcoin wallet, first released June 2020. It offers an intuative desktop GUI ideal for the creation and management of MultiSig or SingleSig wallets with extensive HWW support.
 
-1. Create a new directory in Downloads folder called ```Specter``` and move into it.
-   ```bash copy
-   mkdir ~/Downloads/Specter && cd ~/Downloads/Specter
-   ```
-2. Download Specter, SHA256SUMS and SHA256SUMS.asc to Downloads folder
-   ```bash copy
-   wget https://github.com/cryptoadvance/specter-desktop/releases/download/v2.0.5/specter_desktop-v2.0.5-x86_64-linux-gnu.tar.gz https://github.com/cryptoadvance/specter-desktop/releases/download/v2.0.5/SHA256SUMS https://github.com/cryptoadvance/specter-desktop/releases/download/v2.0.5/SHA256SUMS.asc
-   ```
-3. Now head over to [here](https://specter.solutions/downloads/) and click on ```Verify signiture```, below ```For Linux```. Follow the instructions to verfiy both the signiture and the file.
+## Install Python 3.10 for Specter Compatibility
 
-   On step #2, Brave browser blocked the download, I had to manually resume/approve the download by clicking on the small yellow triangle in the top righthand corner of the browser window. I also had to rename the file to ```pgp_keys.asc``` as Brave-browser wanted to name the file by the long RSA number.
+Bitcoin Knots 28.0 requires a newer version of Specter than the current binary releases support. We'll install Specter via Python virtual environment for the latest compatible version.
 
-4. Extract the download
-   ```bash copy
-   tar -xvf ~/Downloads/Specter/specter_desktop-v2.0.5-x86_64-linux-gnu.tar.gz
-   ```
+- Add deadsnakes PPA for Python 3.10. Run:
+```bash copy
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.10 python3.10-venv python3.10-dev python3-venv
+```
 
-## Set UDEV rules
-5. Naigate to Specter directory
-   ```bash copy
-   cd ~/Downloads/Specter
-   ```
-6. Apply the following udev rules by copying them to `/etc/udev/rules.d/` and notifying `udevadm`.
-Your user will need to be added to the `plugdev` group, which needs to be created if it does not already exist. Run the following commands one at a time:
-   ```bash copy
-   sudo cp udev/*.rules /etc/udev/rules.d/
-   ```
-   ```bash copy
-   sudo udevadm trigger
-   ```
-   ```bash copy
-   sudo udevadm control --reload-rules
-   ```
-   ```bash copy
-   sudo groupadd plugdev
-   ```
-   ```bash copy
-   sudo usermod -aG plugdev `whoami`
-   ```
+- Create Python virtual environment with Python 3.10. Run:
+```bash copy
+python3.10 -m venv ~/.specter-env
+source ~/.specter-env/bin/activate
+```
 
+- Install Specter Browser App. Run:
+```bash copy
+pip install --upgrade pip
+pip install cryptoadvance.specter
+```
+
+- Remove problematic Spectrum plugin (causes SQLAlchemy conflicts). Run:
+```bash copy
+pip uninstall cryptoadvance-spectrum -y
+```
+
+- Check installed version. Run:
+```bash copy
+pip show cryptoadvance.specter
+```
+
+- Create launch script for easy startup. Run:
+```bash copy
+nano ~/start-specter-desktop.sh
+```
+
+- Add the following content to the script, save and exit:
+```bash copy
+#!/bin/bash
+
+# Function to check if Specter is already running
+check_specter() {
+    if lsof -Pi :25442 -sTCP:LISTEN -t >/dev/null 2>&1; then
+        return 0  # Specter is running
+    else
+        return 1  # Specter is not running
+    fi
+}
+
+# Check if Specter is already running
+if check_specter; then
+    echo "Specter is already running, opening browser..."
+    brave-browser http://127.0.0.1:25442
+    exit 0
+fi
+
+# Start Specter server
+echo "Starting Specter server..."
+cd ~
+source ~/.specter-env/bin/activate
+
+# Start Specter in background
+nohup python -m cryptoadvance.specter server --host 127.0.0.1 --port 25442 > ~/.specter/specter.log 2>&1 &
+
+# Wait for server to start (check every second for up to 10 seconds)
+echo "Waiting for Specter to start..."
+for i in {1..10}; do
+    if check_specter; then
+        echo "Specter started successfully!"
+        sleep 2  # Give it a moment to fully initialize
+        brave-browser http://127.0.0.1:25442
+        exit 0
+    fi
+    sleep 1
+done
+
+echo "Failed to start Specter server. Check ~/.specter/specter.log for errors."
+exit 1
+```
+
+- Make the script executable. Run:
+```bash copy
+chmod +x ~/start-specter-desktop.sh
+```
+
+- Download an application icon for Specter:
+I think the red Pacman logo looks good for Spector.
+
+Head over to [FreeiconsPNG](https://www.freeiconspng.com/download/25184) and download the Pacman PNG logo to your Downloads folder.
+
+- Move Pacman logo to icons folder. Run:
+```bash copy
+mv ~/Downloads/pacman-png-25184.png ~/.icons/specter-logo.png
+```
+Adjust the filename to match what you actually downloaded
+
+```bash copy
+
+# Move your pacman logo to the icons folder
+mv ~/Downloads/pacman-png-25184 ~/.icons/specter-logo.png
+# Or copy if you want to keep the original
+cp ~/path/to/your/pacman.png ~/.icons/specter-logo.png
+```
+
+- Create desktop launcher. Run:
+```bash copy
+nano ~/Desktop/specter.desktop
+```
+
+- Add the following content, save and exit:
+```bash copy
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Icon=/home/rez/.icons/specter-logo.png
+Name=Specter Desktop
+Exec=/home/<USER>/start-specter-desktop.sh
+Comment=Bitcoin wallet with hardware wallet support
+```
+Replace <USER> with your actual username.
+
+- Make desktop launcher executable. Run:
+```bash copy
+chmod +x ~/Desktop/specter.desktop
+```
+
+-  Make sure files have correct permissions. Run:
+```bash copy
+chmod 644 ~/.icons/specter-logo.png
+chmod +x ~/Desktop/specter.desktop
+```
+
+## Set UDEV Rules for Hardware Wallets
+
+Hardware wallets require specific UDEV rules to function properly with Linux systems.
+
+- Create plugdev group and add your user. Run:
+```bash copy
+sudo groupadd plugdev
+sudo usermod -aG plugdev `whoami`
+```
+
+- Download UDEV rules for popular hardware wallets. Run:
+```bash copy
+# Create temporary directory for UDEV rules
+mkdir -p ~/temp-udev && cd ~/temp-udev
+
+# Download Specter's comprehensive UDEV rules collection
+wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-coinkite.rules
+wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-hid-digitalbitbox.rules
+wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-keepkey.rules
+wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-ledger.rules
+wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-trezor.rules
+```
+
+- Install UDEV rules. Run:
+```bash copy
+sudo cp *.rules /etc/udev/rules.d/
+sudo udevadm trigger
+sudo udevadm control --reload-rules
+```
+
+- Clean up temporary files. Run:
+```bash copy
+cd ~ && rm -rf ~/temp-udev
+```
+  
 ## Specter configuration
-7. Launch Specter for the first time
-   ```bash copy
-   cd ~/Downloads/Specter && ./Specter-2.0.5.AppImage
-   ```
+- Start Bitcoin Knots by running `bitcoin-qt` or `bitcoind -daemon`
+- Start Specter by double-clicking the desktop icon or running `./start-specter-desktop.sh` (this will automatically open your browser)
 You will be greeted with Specters welcome screen providing the options to configure the application. 
 
 8. Use the below config settings:
-   - Name = Bitcoin Core
+   - Name = Bitcoin Knots
    - Username = <UserName> (matching the rpcuser details in bitocoin.conf file)
    - Password = <Password> (matching the rpcpassword details in bitcoin.conf file)
    - Host = 127.0.0.1
@@ -922,7 +1056,7 @@ You will be greeted with Specters welcome screen providing the options to config
    
 9. Click ```Connect```
 
-Specter will automatically utilize the existing Tor configuration used for Bitcoin Core. To validate this yourself, you can check the Specter Desktop logs for any Tor-related messages or errors. If everything is configured correctly, you should see no issues or warnings regarding Tor.
+Specter will automatically utilize the existing Tor configuration used for Bitcoin Knots. To validate this yourself, you can check the Specter Desktop logs for any Tor-related messages or errors. If everything is configured correctly, you should see no issues or warnings regarding Tor.
 
 10. Check Specter logs for any errors/issues
     ```bash copy
@@ -934,6 +1068,38 @@ Specter will automatically utilize the existing Tor configuration used for Bitco
     ```
 Read Specters official [docs](https://docs.specter.solutions/desktop/) to get the most out of the software wallets functionality.
 
+---
+# Troubleshooting
+
+## Specter Connection Issues
+
+If you encounter `KeyError: 'error'` when connecting Specter to Bitcoin Knots 28.0:
+
+1. **Ensure you're using the Python installation method**: Binary releases may not support Bitcoin Knots 28.0
+2. **Check Bitcoin Knots is running**: Run `bitcoin-cli getblockchaininfo` to verify
+3. **Verify RPC credentials**: Ensure rpcuser and rpcpassword in bitcoin.conf match Specter settings
+4. **Check Specter version**: Run `pip show cryptoadvance.specter` - should be v2.1.1 or later
+
+## Port Conflicts
+
+If you get "Port 25442 is in use":
+- Kill existing Specter processes: `pkill -f "cryptoadvance.specter"`
+- Or use a different port: `python -m cryptoadvance.specter server --host 127.0.0.1 --port 25443`
+
+## SQLAlchemy Conflicts
+
+If you see SQLAlchemy errors during Specter installation:
+- Remove the Spectrum plugin: `pip uninstall cryptoadvance-spectrum -y`
+- Reinstall Specter: `pip install --force-reinstall cryptoadvance.specter`
+
+## Hardware Wallet Issues
+
+If hardware wallets aren't detected:
+- Ensure UDEV rules are installed correctly
+- Check that your user is in the plugdev group: `groups $USER`
+- Try unplugging and reconnecting the device
+- Restart Specter after connecting hardware wallet
+  
 ---
 # Install Sparrow wallet
 [Official Website](https://sparrowwallet.com/)
@@ -973,7 +1139,7 @@ Sparrow is an open-source Bitcoin wallet, first released September 2020, offerin
    - Certificate: (leave the field empty)
    - Use Proxy: toggle switch ```On``` (blue)
    - Proxy URL: 127.0.0.1 9050
-11. Make sure Bitcoin Core and Electrs are running then click on the    
+11. Make sure Bitcoin Knots and Electrs are running then click on the    
 ```Test Connection``` button. You should be greeted with the following text:
     ```
     Connected to electrs/0.10.5 on protocol version 1.4
@@ -1032,7 +1198,7 @@ If you are still using Ledger or needing access to to the Ledger Live suite then
 ---
 # Configure desktop
 ## Build Bitcoin node desktop icon
-Build a launchable Desktop icon called ```Bitcoin``` that when clicked will launch Bitcoin Core and Electrs, ready for you to then open the bitcoin wallet of your choice.
+Build a launchable Desktop icon called ```Bitcoin``` that when clicked will launch Bitcoin Knots and Electrs, ready for you to then open the bitcoin wallet of your choice.
 1. First we need to create an executable bash script, we'll call it ```node.sh```
    ```bash copy
    nano node.sh
@@ -1047,7 +1213,7 @@ Build a launchable Desktop icon called ```Bitcoin``` that when clicked will laun
    # launch bitcoind as a background job
    /usr/local/bin/bitcoind &
    
-   # Sleep to allow Bitcoin Core to load, if electra throws an error that then increase the sleep time
+   # Sleep to allow Bitcoin Knots to load, if electrs throws an error then increase the sleep time
    sleep 5
    
    # launch electrs
