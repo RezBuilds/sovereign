@@ -69,7 +69,7 @@ At time of writing the Bitcoin blockchain is around 600GB of data so you will al
   
 ___
 ## VERIFY & INSTALL SOFTWARE
-For all Bitcoin software, it’s a particularly important security step to verify the release. This is done to ensure the installation file you download has not been compromised. Follow download instructions and use gpg in the terminal as instructed. - [Sparrow](https://sparrowwallet.com/download/)
+For all Bitcoin software, it’s a particularly important security step to verify the release. This is done to ensure the installation file you download has not been compromised. Follow download instructions and use gpg in the terminal as instructed. - Wise words.
 
 ___
 # Install Ubuntu 22.04 LTS
