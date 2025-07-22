@@ -3,6 +3,9 @@ last updated: 18th July 2025.
 
 [![Watch Intro Video](https://github.com/www-codeblock-io/Sovereign/blob/main/repo_resources/video_intro.png)](https://www.youtube.com/watch?v=lkLX7CVw-Og)
 
+## Disclosure
+This guide contains Amazon affiliate links. As an Amazon Associate, I earn from qualifying purchases. This helps support the development and maintenance of this guide at no additional cost to you. All recommendations are based on my personal experience and research.
+
 # Project goal
 A cookbook to convert an old laptop into a Sovereign Personal Bitcoin Node.
 
@@ -42,13 +45,16 @@ Bitcoin Knots [minimum requirements](https://bitcoin.org/en/bitcoin-core/feature
 
 Most entry level laptops should meet the above specifications. Just upgrade the existing HDD to a 2T NVMe SSD card and connect the WiFi to an unlimited broadband connection.
 
-I purchased this second hand [HP portable laptop](https://www.amazon.com/gp/aw/d/B0C9N3H8F2/ref=ox_sc_act_image_1?smid=AYY6S2IYYQJGA "Amazon HP Laptop") from Amazon.com for $140.
+### Recommended Hardware Components
 
+**Laptop**: I purchased this second hand [HP portable laptop](https://amzn.to/40uZ4ZC) from Amazon.com for $140.
 - Ram: 16GB
 - CPU: Intel celeron 1.1 GHz
 - HDD: 64GB
 
-At time of writing the Bitcoin blockchain is around 600GB of data so you will almost certainly need to upgrade the laptops internal SSD card. The NVMe SSD I upgraded to was this [2TB SSD card](https://www.amazon.com/LEVEN-JPS600-Gen3x4-Thermal-Packaging/dp/B0BMTSBB7Y/ref=sr_1_2?sr=8-2) for $93.
+**Storage Upgrade**: At time of writing the Bitcoin blockchain is around 600GB of data so you will almost certainly need to upgrade the laptops internal SSD card. The NVMe SSD I upgraded to was this [2TB SSD card](https://amzn.to/3TUmjIT) for $93.
+
+**USB Drive**: For creating bootable Ubuntu installation media, I recommend using a [32GB USB drive](https://amzn.to/46nhQG8) with good read/write speeds.
 
 ---
 ## SOFTWARE
