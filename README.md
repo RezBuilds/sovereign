@@ -54,6 +54,12 @@ with a few personal additions...
 - **Bitcoin payments** - Support the Bitcoin ecosystem with Bitcoin payments  
 - **30-day support** - Follow-up assistance included with all sessions  
 
+### Book Your Session
+
+Visit [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation) to book your consultation session.
+
+**Value Proposition:** I solved the Bitcoin node setup problem that non-technical people face, and open-sourced the complete solution. Need help implementing it? I offer private consultation - no personal details required.
+
 
 ---
 ## HARDWARE
