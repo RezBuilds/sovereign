@@ -15,6 +15,8 @@ Because external guides can be out-of-date and not actively maintained. This gui
 
 Think of this as a general installation guide with additional trouble shooting tips.
 
+**Need help implementing this guide?** I offer private consultation services for non-technical users. Visit [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation) for 1-on-1 expert guidance.
+
 # Why run a bitcoin node?
 
 Inspired by [Arman The Parman](https://armantheparman.com/why-should-you-run-your-own-bitcoin-node/)
@@ -31,6 +33,26 @@ with a few personal additions...
 5. Help someone else run a node, or provide the infrastructure so someone else can trust you and connect to your node. Remember, being a human node is not the power to run the software but the power to choose the right software to connect to - you can be that option for people, especially those you orange pill, instead of letting them connect to a random node.
 
 6. Enjoy peace of mind, and gain a greater appreciation for the power of Bitcoin. You’ll probably end up buying more, and accumulating more girlfriends.
+
+
+---
+## Need Help? Get Expert Consultation
+
+**Struggling with the setup?** I offer private 1-on-1 consultation to help you implement your sovereign Bitcoin node.
+
+### Consultation Services
+
+- **Quick Setup Review ($150/hour)** - Troubleshooting existing setup, hardware compatibility issues, quick configuration fixes
+- **Full Node Implementation ($300/session)** - Complete guided setup including hardware preparation, Ubuntu installation, Bitcoin Knots setup, and wallet configuration
+- **Advanced Configuration ($450/session)** - Lightning Network setup, Tor integration, advanced security features, and performance optimization
+
+### Why Choose Consultation?
+
+- **Non-technical friendly** - Perfect for users who find GitHub guides overwhelming  
+- **Privacy guaranteed** - No personal details required, anonymous consultation available  
+- **Proven track record** - Built by the same person who created this Sovereign guide  
+- **Bitcoin payments** - Support the Bitcoin ecosystem with Bitcoin payments  
+- **30-day support** - Follow-up assistance included with all sessions  
 
 
 ---
@@ -1346,3 +1368,33 @@ Build a launchable Desktop icon called ```Electrum``` that when clicked will lau
   ``` bash copy
   gsettings set org.gnome.shell.extensions.ding show-home false
   ```
+
+
+---
+## Support & Consultation
+
+### Free Resources
+- This guide is completely free and open source
+- All software mentioned is free and open source
+- Community support available through GitHub issues
+
+### Professional Consultation
+If you need personalized help implementing this guide, I offer private consultation services:
+
+**Services Available:**
+- **Quick Setup Review ($150/hour)** - Troubleshooting and configuration fixes
+- **Full Node Implementation ($300/session)** - Complete guided setup
+- **Advanced Configuration ($450/session)** - Lightning Network and advanced features
+
+**Benefits:**
+- 1-on-1 expert guidance
+- Non-technical user friendly
+- Privacy-focused (no personal details required)
+- Bitcoin payments accepted
+- 30-day follow-up support
+
+**Book Consultation:** [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation)
+
+*This consultation service helps support the continued development and maintenance of this free guide.*
+
+---
