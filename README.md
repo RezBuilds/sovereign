@@ -1,6 +1,8 @@
 # Sovereign - Personal Bitcoin Node
 last updated: 18th July 2025.
 
+**Bitcoin self-custody and sovereignty is for everyone - no third-party trust required. Free full node guide for non-technical users, regularly maintained and updated.**
+
 [![Watch Intro Video](https://github.com/www-codeblock-io/Sovereign/blob/main/repo_resources/video_intro.png)](https://www.youtube.com/watch?v=lkLX7CVw-Og)
 
 ## Disclosure
