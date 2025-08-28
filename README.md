@@ -17,7 +17,7 @@ Because external guides can be out-of-date and not actively maintained. This gui
 
 Think of this as a general installation guide with additional trouble shooting tips.
 
-**Need help implementing this guide?** I offer private anonymous consultation services for non-technical users. Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) for 1-on-1 expert guidance.
+**Need help implementing this guide?** I offer private pseudonymous consultation services for non-technical users. Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) for 1-on-1 expert guidance.
 
 # Why run a bitcoin node?
 
