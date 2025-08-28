@@ -17,7 +17,7 @@ Because external guides can be out-of-date and not actively maintained. This gui
 
 Think of this as a general installation guide with additional trouble shooting tips.
 
-**Need help implementing this guide?** I offer private consultation services for non-technical users. Visit [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation) for 1-on-1 expert guidance.
+**Need help implementing this guide?** I offer private consultation services for non-technical users. Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) for 1-on-1 expert guidance.
 
 # Why run a bitcoin node?
 
@@ -58,7 +58,7 @@ with a few personal additions...
 
 ### Book Your Session
 
-Visit [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation) to book your consultation session.
+Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) to book your consultation session.
 
 **Value Proposition:** I solved the Bitcoin node setup problem that non-technical people face, and open-sourced the complete solution. Need help implementing it? I offer private consultation - no personal details required.
 
@@ -1401,7 +1401,7 @@ If you need personalized help implementing this guide, I offer private consultat
 - Bitcoin payments accepted
 - 30-day follow-up support
 
-**Book Consultation:** [codeblock.io/bitcoin-consultation](https://codeblock.io/bitcoin-consultation)
+**Book Consultation:** [sovereign101.com/consultation](https://sovereign101.com/consultation)
 
 *This consultation service helps support the continued development and maintenance of this free guide.*
 
