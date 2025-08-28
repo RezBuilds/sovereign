@@ -38,32 +38,6 @@ with a few personal additions...
 
 
 ---
-## Need Help? Get Expert Consultation
-
-**Struggling with the setup?** I offer private 1-on-1 consultation to help you implement your sovereign Bitcoin node.
-
-### Consultation Services
-
-- **Quick Setup Review ($150/hour)** - Troubleshooting existing setup, hardware compatibility issues, quick configuration fixes
-- **Full Node Implementation ($300/session)** - Complete guided setup including hardware preparation, Ubuntu installation, Bitcoin Knots setup, and wallet configuration
-- **Advanced Configuration ($450/session)** - Lightning Network setup, Tor integration, advanced security features, and performance optimization
-
-### Why Choose Consultation?
-
-- **Non-technical friendly** - Perfect for users who find GitHub guides overwhelming  
-- **Privacy guaranteed** - No personal details required, anonymous consultation available  
-- **Proven track record** - Built by the same person who created this Sovereign guide  
-- **Bitcoin payments** - Support the Bitcoin ecosystem with Bitcoin payments  
-- **30-day support** - Follow-up assistance included with all sessions  
-
-### Book Your Session
-
-Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) to book your consultation session.
-
-**Value Proposition:** I solved the Bitcoin node setup problem that non-technical people face, and open-sourced the complete solution. Need help implementing it? I offer private consultation - no personal details required.
-
-
----
 ## HARDWARE
 
 Bitcoin Knots [minimum requirements](https://bitcoin.org/en/bitcoin-core/features/requirements)
