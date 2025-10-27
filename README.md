@@ -865,7 +865,7 @@ Footnote: Although it's great to watch something smash buy bitcoin in blocks of 
 _"I'm taking steps to sell the remaining 72,572 bitcoins responsibly! 💼 No deals with organised crime, third parties, or middlemen - just direct transactions with integrity. Selling in lots of 100 for transparency only. Let's keep it real & legal in the crypto world!💰" - Gummo_
 
 ---
-# Launch Bitcoin Knots, Electrs & Electrum
+# Test Launch Bitcoin Knots, Electrs & Electrum
 1. Start Bitcoin Knots by running ```bitcoin-qt``` to use the GUI or to run a daemon. Run:
    ```bash copy
    bitcoind -datadir=/media/<User>\<External_SSD_Name> -server -daemon
@@ -1380,3 +1380,4 @@ If you need personalized help implementing this guide, I offer private consultat
 *This consultation service helps support the continued development and maintenance of this free guide.*
 
 ---
+
