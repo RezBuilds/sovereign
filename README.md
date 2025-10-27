@@ -377,7 +377,6 @@ You can easily switch between Bitcoin Core and Bitcoin Knots:
 # Install Tor
 **Estimated time: 10-15 minutes**
 
-**Last updated: July 2025**
 [Official website](https://support.torproject.org/apt/tor-deb-repo/)
 
 "Browse Privately. Explore Freely.
