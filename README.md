@@ -771,11 +771,6 @@ For airgapped hardware wallets, no USB connection or UDEV rules are required as 
 
 ## Create Desktop Icons
 
-### Remove Home Folder Icon
-```bash copy
-gsettings set org.gnome.shell.extensions.ding show-home false
-```
-
 ### General Process
 1. **Create executable script**: `nano ~/app-name.sh`
 2. **Download icon**: `wget [icon-url]` to `~/.icons/`
@@ -896,7 +891,10 @@ chmod 644 ~/.icons/specter-logo.png
 chmod +x ~/start-specter-desktop.sh
 ```
 
-
+### Remove Home Folder Icon
+```bash copy
+gsettings set org.gnome.shell.extensions.ding show-home false
+```
 
 ---
 ## Support & Consultation
