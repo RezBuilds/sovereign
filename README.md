@@ -569,10 +569,6 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
     cargo fix --lib -p electrs
     ```
 
-## Generate Electrs man pages (optional)
-Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 man``` to save it into a file (```electrs.1```).
-
-
 ---
 ## Configure Electrs
 1. First lets create a symbolic link to a directory that is in our PATH so we can run electrs from anywhere  
