@@ -162,14 +162,14 @@ Once Ubuntu installation has finished, complete the following setup steps:
 ### 1. Initial Configuration
 ```bash
 # Update package manager
-sudo apt update && sudo apt upgrade
+   sudo apt update && sudo apt upgrade
 
 # Install Git
-sudo apt install git
+   sudo apt install git
 
 # Install dependencies for Specter
-sudo add-apt-repository universe && sudo apt install libfuse2
-```
+   sudo add-apt-repository universe && sudo apt install libfuse2
+   ```
 
 ### 2. Power Management Setup
 Because you will want to run your node for 6+ hours a day (24hrs is better), configure power settings:
@@ -185,11 +185,14 @@ Because you will want to run your node for 6+ hours a day (24hrs is better), con
 # Configure laptop lid to do nothing when closed
 sudo nano /etc/systemd/logind.conf
 # Uncomment and set: HandleLidSwitch=ignore
-sudo systemctl restart systemd-logind
-```
+   sudo systemctl restart systemd-logind
+   ```
 *Note: This will log you out of Ubuntu*
 
 ___
+## 🎯 Progress Checkpoint: Ubuntu Setup Complete!
+**You're about 25% done with the setup process.**
+
 # Install Proton VPN
 1. Download repo:
    ```bash
@@ -371,9 +374,6 @@ You can easily switch between Bitcoin Core and Bitcoin Knots:
 - No need to re-download the blockchain
   
 ---
-## 🎯 Progress Checkpoint: Ubuntu Setup Complete!
-**You're about 25% done with the setup process.**
-
 # Install Tor
 **Estimated time: 10-15 minutes**
 **Last updated: July 2025**
@@ -555,12 +555,12 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
 10. Clone Electrs:
     ```bash
     cd ~ && git clone https://github.com/romanz/electrs
-    ```
+    ``` 
 11. Enter directory:
     ```bash
     cd electrs
     ```
-## Build Electrs 
+## Build Electrs
 
 12. Build Electrs (~20 minutes):
     ```bash 
@@ -609,7 +609,7 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
    
    # This example contains only the most important settings.
    # See docs or electrs man page for advanced settings.
-   
+
    # Use the below auth="USER:PASSWORD if you have RPC user:password set/active
    # in bitcoin.conf file.
    auth="<User>:<Password>"
@@ -679,38 +679,38 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
 # Download and verify
 cd ~/Downloads
 wget https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc && gpg --import ThomasV.asc
-sudo apt-get install python3-pyqt5 libsecp256k1-dev python3-cryptography
-wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz
-wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz.asc && gpg --verify Electrum-4.5.8.tar.gz.asc
-sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.8.tar.gz
-cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc ThomasV.asc
-```
+   sudo apt-get install python3-pyqt5 libsecp256k1-dev python3-cryptography
+   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz
+   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz.asc && gpg --verify Electrum-4.5.8.tar.gz.asc
+   sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.8.tar.gz
+   cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc ThomasV.asc
+   ```
 
 **Configuration:**
 ```bash
 # Launch with Tor settings
-electrum --oneserver --server 127.0.0.1:50001:t --proxy socks5:127.0.0.1:9150
-```
-
+   electrum --oneserver --server 127.0.0.1:50001:t --proxy socks5:127.0.0.1:9150
+   ```
+ 
 **Close Electrum immediately, then edit config:**
 ```bash
-cd ~/.electrum && nano config
-```
+   cd ~/.electrum && nano config
+   ```
 
 **Config file contents:**
 ```json
-{
-    "auto_connect": false,
-    "check_updates": false,
-    "decimal_point": 8,
-    "log_to_file": true, 
-    "oneserver": true,
-    "proxy": "socks4:localhost:9050",
-    "proxy_password": "",
-    "proxy_user": "",
-    "server": "localhost:50001:t"
-}
-```
+   {
+       "auto_connect": false,
+       "check_updates": false,
+       "decimal_point": 8,
+       "log_to_file": true, 
+       "oneserver": true,
+       "proxy": "socks4:localhost:9050",
+       "proxy_password": "",
+       "proxy_user": "",
+       "server": "localhost:50001:t"
+   }
+   ```
 
 ## Specter Desktop
 [Official Website](https://specter.solutions/index.html)
@@ -755,15 +755,6 @@ sudo dpkg -i sparrow_2.2.3-1_amd64.deb
 
 ## Verification
 If the Network light in the bottom right corner of any wallet is blue, you're connected to your own node running behind Tor. It's now safe to interact with your real wallets.
-
-## 🎉 Congratulations! Setup Complete!
-**You've successfully built your own Sovereign Bitcoin Node!**
-
-Your node is now:
-- ✅ Running Bitcoin Knots behind Tor
-- ✅ Indexed with Electrs for fast wallet queries
-- ✅ Connected to three different wallet interfaces
-- ✅ Fully sovereign and private
 
 ---
 # Desktop Configuration
@@ -891,9 +882,9 @@ chmod +x ~/start-specter-desktop.sh
 ```
 
 ### Remove Home Folder Icon
-```bash
-gsettings set org.gnome.shell.extensions.ding show-home false
-```
+    ```bash
+  gsettings set org.gnome.shell.extensions.ding show-home false
+  ```
 
 ---
 ## Support & Consultation
