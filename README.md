@@ -884,7 +884,7 @@ chmod +x ~/start-specter-desktop.sh
 ```
 
 ### Remove Home Folder Icon
-    ```bash
+```bash
   gsettings set org.gnome.shell.extensions.ding show-home false
   ```
 
@@ -916,6 +916,7 @@ If you need personalized help implementing this guide, I offer private consultat
 *This consultation service helps support the continued development and maintenance of this free guide.*
 
 ---
+
 
 
 
