@@ -560,7 +560,8 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
     ```bash
     cd electrs
     ```
-## Build Electrs
+## Build Electrs 
+**Estimated time: 1-2 days**
 
 12. Build Electrs (~20 minutes):
     ```bash 
