@@ -653,7 +653,7 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
    du ~/electrs/db
    ```
 ---
-# Install all three
+# Install all three Bitcoin wallets: Electrum, Sparrow & Specter
 
 ## Prerequisites
 - Bitcoin Knots must be running and synced
