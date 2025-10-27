@@ -227,7 +227,6 @@ ___
    ```
 9. Headover to [ProtonVPN](https://account.protonvpn.com/signup "ProtonVPN.com") and Sign-up to a free account.
 
-
 **_Connect to ProtonVPN whenever accessing a web browser on your machine._**
 
 ---
