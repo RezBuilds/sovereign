@@ -89,7 +89,7 @@ ___
 # Install Ubuntu 24.04 LTS
 **Estimated time: 30-45 minutes**
 
-I installed Ubuntu 24.04 LTS as it's the latest stable LTS release, providing security updates until 2029.
+Ubuntu 24.04 LTS is the latest stable LTS release, providing security updates until 2029.
 
 ## Deactivate Secure-Boot
 If repurposing an old Windows laptop, Deactivate Secure-Boot.
