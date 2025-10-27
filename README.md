@@ -657,7 +657,7 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
    du ~/electrs/db
    ```
 ---
-# Wallet Setup (Choose One or More)
+# Install all three
 
 ## Prerequisites
 - Bitcoin Knots must be running and synced
