@@ -679,7 +679,10 @@ cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc Tho
 ```bash copy
 # Launch with Tor settings
 electrum --oneserver --server 127.0.0.1:50001:t --proxy socks5:127.0.0.1:9150
-# Close immediately, then edit config
+```
+
+**Close Electrum immediately, then edit config:**
+```bash copy
 cd ~/.electrum && nano config
 ```
 
