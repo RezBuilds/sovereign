@@ -820,6 +820,12 @@ Icon=electrum
 Type=Application
 ```
 
+**Icon setup**:
+```bash copy
+# Electrum uses the built-in icon, no additional setup needed
+# The icon=electrum in the desktop file references the system icon
+```
+
 ### Specter Desktop Icon
 **Script content** (`~/start-specter-desktop.sh`):
 ```bash
