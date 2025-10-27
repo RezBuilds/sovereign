@@ -1,10 +1,11 @@
-# 19th March 2024
+# 10th September 2024
 ## HARDWARE
-- Brand: HP 
-- Model: Student Portable
+- Brand: Lenovo Thinkpad
+- Model: X1 Carbon Gen 6
 - RAM: 16GB
-- CPU: Intel celeron 1.1 GHz
-- HDD: SSD 2TB 
+- CPU:
+- HDD: SSD 250GB
+- External SSD: 2T Samsung T7 Shield
 
 ## SOFTWARE
 - Ubuntu 22.04.04 LTS (Jammy Jellyfish)
@@ -20,14 +21,13 @@
 - Ledger Live-2.85.1
 
 
-# 10th September 2024
+# 19th March 2024
 ## HARDWARE
-- Brand: Lenovo Thinkpad
-- Model: X1 Carbon Gen 6
+- Brand: HP 
+- Model: Student Portable
 - RAM: 16GB
-- CPU:
-- HDD: SSD 250GB
-- External SSD: 2T Samsung T7 Shield
+- CPU: Intel celeron 1.1 GHz
+- HDD: SSD 2TB 
 
 ## SOFTWARE
 - Ubuntu 22.04.04 LTS (Jammy Jellyfish)
