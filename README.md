@@ -110,27 +110,25 @@ Note, the slightly different commands, depending if you are on Windows or Linux.
 [Reference Link](https://ubuntu.com/tutorials/how-to-verify-ubuntu#2-necessary-software "Ubuntu tutorial")
 
 ### Windows10
-1. Verify signitures. Open a Terminal window (CTRL+ALT+T). Run:
+1. Verify signatures:
    ```bash
    gpg --keyid-format long --verify SHA256SUMS.gpg SHA256SUMS.txt
    ```
-2. Verify ISO file
+2. Verify ISO file:
    ```bash
    certutil -hashFile <ISO_file_path> SHA256
    ```
-Now open the SHA256SUMS.txt file in your Downloads folder and compare the SHA256 checksum inside the file with the checksum that was printed to the Terminal. It will be a long hash, verify both hashes/numbers match, if so, your ISO download is authentic.
+Compare the output with the hash in SHA256SUMS.txt.
 
 ### Linux/MacOS
-1. Verify signitures. Open a Terminal window (CTRL+ALT+T). Run:
+1. Verify signatures:
    ```bash
    gpg --keyid-format long --verify SHA256SUMS.gpg SHA256SUMS.txt
    ```
-2. Verify ISO file
+2. Verify ISO file:
    ```bash
    sha256sum -c SHA256SUMS 2>&1 | grep OK
    ```
-   The output you want will look similar to the following:
-      ```ubuntu-24.04.4-desktop-amd64.iso: OK```
 
 
 ## Complete install
@@ -191,37 +189,36 @@ sudo systemctl restart systemd-logind
 
 ___
 # Install Proton VPN
-1. Move to Downloads folder and download repo. Run:
+1. Download repo:
    ```bash
    cd ~/Downloads && wget https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.4_all.deb
    ```
 
-2. Install repo
+2. Install repo:
    ```bash
    sudo dpkg -i ./protonvpn-stable-release_1.0.4_all.deb && sudo apt update
    ```
 
-3. Check the repo package integrity by checking its checksum
+3. Verify package integrity:
    ```bash
    echo "62a9d849835de8a5664cf95329458bf1966780b15cec420bf707b5f7278b9027  protonvpn-stable-release_1.0.4_all.deb" | sha256sum --check -
    ```
 
-4. Install ProtonVPN desktop app
+4. Install ProtonVPN:
    ```bash
    sudo apt install proton-vpn-gnome-desktop
    ```
 
-6. Check for updates to ensure you’re running the latest version
+6. Update system:
    ```bash
    sudo apt update && sudo apt upgrade
    ```
 
-7. Linux system tray icon (optional)
-   By default, GNOME doesn’t support tray icons. Enable this functionality
+7. Enable system tray (optional):
    ```bash
    sudo apt install libayatana-appindicator3-1 gir1.2-ayatanaappindicator3-0.1 gnome-shell-extension-appindicator
    ```
-8. Clean up and remove old files
+8. Clean up:
    ```bash
    cd ~/Downloads && rm -r protonvpn-stable-release_1.0.4_all.deb
    ```
@@ -231,19 +228,19 @@ ___
 
 ---
 # Install Brave Browser (optional)
-1. Enter the following commands one at a time. Run:
+1. Install curl:
    ```bash
    sudo apt install curl
    ```
-2. Download keys to keychain
+2. Add Brave key:
    ```bash
    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
    ```
-3. Verify  
+3. Add repository:
    ```bash
    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
    ```
-4. Update and install 
+4. Install Brave:
    ```bash
    sudo apt update && sudo apt install brave-browser
    ```
@@ -251,7 +248,7 @@ ___
 ---
 # Install Telegram Desktop (optional)
 A quick solution for encrypted files/messages.
-1. Install Telegram from apt repo. Run:
+1. Install Telegram:
    ```bash
    sudo apt install telegram-desktop
    ```
@@ -267,15 +264,15 @@ Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 ## Complete install
 [Reference Link](https://bitcoin.org/en/full-node#linux-instructions "Bitcoin.org")
 
-1. Unzip the bitcoin knots folder (adjust filename for current version)
+1. Extract Bitcoin Knots:
    ```bash
    tar xzf bitcoin-28.1.knots20250305-x86_64-linux-gnu.tar.gz
    ```
-2. Install bitcoin knots
+2. Install Bitcoin Knots:
    ```bash
    sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-28.1.knots20250305/bin/*
    ```
-3. Clean up (adjust filenames as needed)
+3. Clean up:
    ```bash
    cd ~/Downloads && sudo rm -r bitcoin-28.1.knots20250305-x86_64-linux-gnu.tar.gz SHA256SUMS.asc SHA256SUMS
    ```
@@ -283,7 +280,7 @@ Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 ---
 ## Run Bitcoin Knots (start initial blockchain download)
 
-1. Start Bitcoin Knots. Run:
+1. Start Bitcoin Knots:
    ```bash
    bitcoin-qt
    ``` 
@@ -340,22 +337,22 @@ Configure your WIFI router to allow Bitcoin Knots incoming connections on port:8
 
 Retrieve your Laptops MAC address and IP address from the Terminal. 
 
-1. To print your MAC address to Terminal. Run:
+1. Get MAC address:
    ```bash
    ip link
    ```
-   You can find the MAC address of your device at the last line after ```link/ether=##:##:##:##:##:##```.
+   Look for `link/ether=##:##:##:##:##:##` in the output.
 
-2. Print your IP address to Terminal
+2. Get IP address:
    ```bash
    hostname -I
    ```
 ## Some other helpful commands
-3. Install net-tools to check incoming/outgoing port traffic
+3. Install net-tools:
    ```bash
    sudo apt install net-tools
    ```
-4. Check what IP and port Bitcoin is listening to
+4. Check Bitcoin connections:
    ```bash
    sudo netstat --ip -lpa|grep bitcoin
    ```
@@ -376,58 +373,58 @@ You can easily switch between Bitcoin Core and Bitcoin Knots:
 "Browse Privately. Explore Freely.
 Defend yourself against tracking and surveillance. Circumvent censorship." - Torproject.org
 
-1. Verify your CPU architecture. Run:
+1. Check CPU architecture:
    ```bash
    dpkg --print-architecture
    ```
-2. Install apt-transport-https
+2. Install apt-transport-https:
    ```bash
    sudo apt install apt-transport-https
    ```
-3. Check what Linux Distribution you have installed
+3. Check Linux distribution:
    ```bash
    lsb_release -c
    ```
-4. Create a new file in /etc/apt/sources.list.d/ named tor.list
+4. Create Tor repository file:
    ```bash
    cd /etc/apt/sources.list.d/
    ```
-5. Open the file
+5. Edit tor.list:
    ```bash
    sudo nano tor.list
    ```
-6. Add the following entries inside the file, save and close
+6. Add repository entries:
    ```bash
    deb     [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org noble main
    deb-src [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] https://deb.torproject.org/torproject.org noble main
    ```
-7. Add Tor gpg key used to sign the packages
+7. Add Tor GPG key:
    ```bash
    sudo wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | sudo tee /usr/share/keyrings/deb.torproject.org-keyring.gpg >/dev/null
    ```
-8. Update apt
+8. Update package list:
    ```bash
    sudo apt update
    ```
-9. Install Tor
+9. Install Tor:
    ```bash
    sudo apt install tor deb.torproject.org-keyring
    ```
-10. Check Tor is installed
+10. Verify installation:
     ```bash
     tor --version
     ```
-11. Configure Tor to start at system Boot (optional but recommended)
+11. Enable auto-start (optional):
     ```bash
     sudo systemctl enable tor
     ```
 
 ## Tor Systemctl commands
-1. Manage Tor using systemd
+1. Restart Tor:
    ```bash
    sudo systemctl restart tor
    ```
-2. To check the status
+2. Check status:
    ```bash
    sudo systemctl status tor
    ```
@@ -440,29 +437,29 @@ https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service)
 Additional video tutorial, for further reference: [Canadian Bitcoiners](
 https://www.youtube.com/watch?v=goTkOt8Rr1Q&list=PLZqQw4mLW-r3UEyL12FG4koZq6lOLsURF&index=3)
 
-1. Make changes to Tor configuration file. Run:
+1. Edit Tor config:
    ```bash
    cd /etc/tor
    ```
-2. Open torrc file   
+2. Edit torrc:
    ```bash
    sudo nano torrc
    ```
-3. Enter the below text at the bottom of the file, save and exit
+3. Add configuration:
    ```bash
    ControlPort 9051
    CookieAuthentication 1
    CookieAuthFileGroupReadable 1
    ```
-4. Check what your Bitcoin Knots user name is
+4. Find Bitcoin user:
    ```bash
    ps -eo user,group,comm |egrep 'bitcoind|bitcoin-qt' |awk '{print "Bitcoin user: " $1}'
    ```
-5. Now add your Bitcoin Knots user name to your Tor group. For example my command would be ```sudo usermod -a -G debian-tor rez``` as my Bitcoin user name is rez.
+5. Add user to Tor group:
    ```bash
    sudo usermod -a -G debian-tor <user name found from above command>
    ```
-6. If the above command did not work, double check your Tor user group name, run this command for a list of user groups, look for a user group with Tor in it's name.
+6. Check Tor groups (if needed):
    ```bash
    getent group
    ```
@@ -477,7 +474,7 @@ If you delete this file, the next time bitcoind loads it will generate a new key
    ```
 
 ## Verify Bitcoin Knots is using Tor
-1. Check Bitcoin Knots network status using the command line:
+1. Verify Tor connection:
    ```bash
    bitcoin-cli getnetworkinfo
    ```
@@ -503,57 +500,57 @@ If you delete this file, the next time bitcoind loads it will generate a new key
 "Electrs is a great low-resource, easy-to-install option for personal use - especially on resource-constrained hardware." - [Jameson Lopp](https://blog.casa.io/electrum-server-performance-report/)
 
 ## Build dependencies
-1. Install recent Rust
+1. Install Rust:
    ```bash
    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
    ```
-2. Install Cargo
+2. Install Cargo:
    ```bash
    sudo apt install cargo
    ```
-3. Update package manager
+3. Update packages:
    ```bash
    sudo apt update
    ```
-4. Install dependencies for Rust-RocksDB
+4. Install build tools:
    ```bash
    sudo apt install clang cmake build-essential
    ```
 
 I chose to compile electrs by statically linking to librocksdb, which has less dependencies.
 
-5. Install dependencies 
+5. Install RocksDB dependencies:
    ```bash
    sudo apt install -y libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev
    ```
-6. Clone the repo
+6. Clone RocksDB:
    ```bash
    git clone -b v7.8.3 --depth 1 https://github.com/facebook/rocksdb && cd rocksdb
    ```
-7. Install using make
+7. Build and install:
    ```bash
    make shared_lib -j $(nproc) && sudo make install-shared
    ```
-8. Clean up directory
+8. Clean up:
    ```bash
    cd .. && rm -r rocksdb
    ```
-9. Prepare man page generation (optional)
+9. Install cfg_me (optional):
    ```bash
    cargo install cfg_me
    ```
-10. Move to home directory and download electrs repo
+10. Clone Electrs:
     ```bash
     cd ~ && git clone https://github.com/romanz/electrs
-    ``` 
-11. Move into electrs directory
+    ```
+11. Enter directory:
     ```bash
     cd electrs
     ```
 ## Build Electrs
 Note: you need to have enough free RAM to build electrs. The build will fail otherwise. Close those 100 old tabs in the browser. 
 
-12. First build should take ~20 minutes
+12. Build Electrs (~20 minutes):
     ```bash 
     cargo build --locked --release
     ```
@@ -571,23 +568,21 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
 
 ---
 ## Configure Electrs
-1. First lets create a symbolic link to a directory that is in our PATH so we can run electrs from anywhere  
+1. Create symbolic link:
    ```bash
    sudo ln -s /home/<USER>/electrs/target/release/electrs /usr/local/bin/electrs
    ```
-2. Check symbolic link was created
+2. Verify link:
    ```bash
    ls -l /usr/local/bin
    ```
-   Now when we upgrade to a new release we won't need to do this again as the link should still work.
 
-3. Test the link
+3. Test installation:
    ```bash
    electrs --version
    ```
-   If the terminal displays a version number then the link is working and we can now run Electrs simply by running ```electrs``` from any location.   
      
-4. Create a config file for Electrs
+4. Create config:
    ```bash
    cd ~ && sudo mkdir .electrs && sudo nano .electrs/config.toml   
    ```
@@ -628,7 +623,7 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
 
    ```
 ## Build Electrs server index
-6. Check size of current Bitcoin Knots block directory
+6. Check Bitcoin data size:
    ```bash
    du -ch ~/.bitcoin/blocks/blk*.dat | tail -n1
    ```
@@ -639,7 +634,7 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
    bitcoind -server -daemon
    ```
 
-8. Check sync is complete (the "blocks" & "headers" number needs to match, if not then there are still blocks being downloaded and synced).
+8. Check sync status:
    ```bash
    bitcoin-cli getblockchaininfo | head
    ```
@@ -648,7 +643,7 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
    ```bash
    electrs --log-filters INFO
    ```
-10. Check final size of Electrs server index DB (should be around 10% the size of the Bitcoin Knots block directory we checked earlier).
+10. Check Electrs DB size:
    ```bash
    du ~/electrs/db
    ```
