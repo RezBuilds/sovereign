@@ -820,6 +820,71 @@ Icon=electrum
 Type=Application
 ```
 
+### Specter Desktop Icon
+**Script content** (`~/start-specter-desktop.sh`):
+```bash
+#!/bin/bash
+# Function to check if Specter is already running
+check_specter() {
+    if lsof -Pi :25442 -sTCP:LISTEN -t >/dev/null 2>&1; then
+        return 0  # Specter is running
+    else
+        return 1  # Specter is not running
+    fi
+}
+
+# Check if Specter is already running
+if check_specter; then
+    echo "Specter is already running, opening browser..."
+    brave-browser http://127.0.0.1:25442
+    exit 0
+fi
+
+# Start Specter server
+echo "Starting Specter server..."
+cd ~
+source ~/.specter-env/bin/activate
+
+# Start Specter in background
+nohup python -m cryptoadvance.specter server --host 127.0.0.1 --port 25442 > ~/.specter/specter.log 2>&1 &
+
+# Wait for server to start
+echo "Waiting for Specter to start..."
+for i in {1..10}; do
+    if check_specter; then
+        echo "Specter started successfully!"
+        sleep 2
+        brave-browser http://127.0.0.1:25442
+        exit 0
+    fi
+    sleep 1
+done
+
+echo "Failed to start Specter server. Check ~/.specter/specter.log for errors."
+exit 1
+```
+
+**Desktop file** (`~/specter.desktop`):
+```ini
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Icon=/home/<USER>/.icons/specter-logo.png
+Name=Specter Desktop
+Exec=/home/<USER>/start-specter-desktop.sh
+Comment=Bitcoin wallet with hardware wallet support
+```
+
+**Icon setup**:
+```bash copy
+# Download Pacman icon for Specter
+wget https://www.freeiconspng.com/download/25184 -O ~/Downloads/pacman-png-25184.png
+mv ~/Downloads/pacman-png-25184.png ~/.icons/specter-logo.png
+chmod 644 ~/.icons/specter-logo.png
+chmod +x ~/start-specter-desktop.sh
+```
+
 ### Optional: Remove Home Folder Icon
 ```bash copy
 gsettings set org.gnome.shell.extensions.ding show-home false
