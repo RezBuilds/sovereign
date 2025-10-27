@@ -507,7 +507,7 @@ If you delete this file, the next time bitcoind loads it will generate a new key
 **You're about 50% done with the setup process.**
 
 # Install Electrs
-**Estimated time: 45-60 minutes (build time)**
+**Estimated time: 45-60 minutes (initial build time)**
 [Official website](https://github.com/romanz/electrs/tree/master?tab=readme-ov-file)
 
 "Electrs is a great low-resource, easy-to-install option for personal use - especially on resource-constrained hardware." - [Jameson Lopp](https://blog.casa.io/electrum-server-performance-report/)
@@ -560,10 +560,10 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
     ```bash
     cd electrs
     ```
-## Build Electrs 
+## Build Electrs DB
 **Estimated time: 1-2 days**
 
-12. Build Electrs (~20 minutes):
+12. Build Electrs DB:
     ```bash 
     cargo build --locked --release
     ```
@@ -915,4 +915,5 @@ If you need personalized help implementing this guide, I offer private consultat
 *This consultation service helps support the continued development and maintenance of this free guide.*
 
 ---
+
 
