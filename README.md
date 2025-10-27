@@ -286,7 +286,7 @@ Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 
 ---
 ## Run Bitcoin Knots (start initial blockchain download)
-**Estimated time: 1-3 days (initial sync)**
+**Estimated time: 3-7 days (initial sync)**
 
 1. Start Bitcoin Knots:
    ```bash
