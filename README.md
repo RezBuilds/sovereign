@@ -73,9 +73,7 @@ Most entry level laptops should meet the above specifications. Just upgrade the 
 
 (optional)
 - Brave Browser
-- Mullvad VPN
 - Telegram Desktop
-- Ledger Live
 
 ### Recent Software Updates (July 2025)
 - **Bitcoin Knots 28.1.knots20250305: March 2025 with enhanced features, more conservative policies, and additional privacy options compared to Bitcoin Core**
@@ -174,34 +172,11 @@ Once Installation has finished.
 ## Install Libfuse
 [Official website](https://github.com/AppImage/AppImageKit/wiki/FUSE)
 
-Ubuntu 24.04 LTS dependencies to run Specter and Ledger-Live apps.
+Ubuntu 24.04 LTS dependencies to run Specter apps.
 1. Install libfuse2
    ```bash copy
    sudo add-apt-repository universe && sudo apt install libfuse2
    ```
-
-## Install AppImageLauncher
-Creats Desktop icons to launch AppImages such as Specter & Ledger-Live.
-1. Install dependencies  
-   ```bash copy
-   sudo apt install software-properties-common
-   ```
-2. Add to apt repo
-   ```bash copy
-   sudo add-apt-repository ppa:appimagelauncher-team/stable
-   ```
-3. Update apt  
-   ```bash copy  
-   sudo apt update
-   ```
-4. Install
-   ```bash copy  
-   sudo apt install appimagelauncher
-   ```
-
-When first run you will be greeted with ```Welcome to AppImageLauncher!```. Configure your App image prefernces to create a new directory to store your (AppImage) Applications, the default location is: /home/<user>/Applications. Change the location if you wish (I chose the default) then click ```OK```. 
-
-Whenever you run a new AppImage you will have two choices, ```Run Once``` or ```Integrate and run```. Click ```Integrate and run```. This will add an executable icon of the app to your ```App``` folder. You can now also right click the App and add it to your favourites tray on your desktop toolbar. 
 
 ## Adjust the power settings
 Because you will want to run your node for 6+ hours a day (24hrs is better) you will need to adjust the power & lid closure settings to prevent the laptop entering into a low power mode, slowing or halting network traffic.
@@ -275,10 +250,6 @@ ___
 **_Connect to ProtonVPN whenever accessing a web browser on your machine._**
 
 ---
-# Install Mullvad VPN (optional) 
-[Mullvad](https://mullvad.net/en/download/vpn/linux "Mullvad.net") recommended by the official Tor website. It's a paid service but has no email requirement and can use BTC to pay for the service. The internet speed should also be faster than a free ProtonVPN account.
-
-___
 # Install Brave Browser (optional)
 1. Enter the following commands one at a time. Run:
    ```bash copy
@@ -732,31 +703,6 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
    ```bash copy
    du ~/electrs/db
    ```
-## Monitoring Electrs (optional)
-1. Install prometheus
-   ```bash copy
-   sudo apt install prometheus
-   ```
-3. Edit prometheus.yml file
-   ```bash copy
-   cd /etc/prometheus/ && sudo nano prometheus.yml
-   ```
-   Scroll to the bottom of the file and add the below, save and exit.
-     ```bash copy
-      - job_name: electrs
-        static_configs:
-          - targets: ['localhost:4224']
-      ```
-4. Restart prometheus
-     ```bash copy
-     sudo systemctl restart prometheus
-     ```
-6. Check collected metrics
-     ```bash copy
-      brave-browser 'http://localhost:9090/graph?g0.range_input=1h&g0.expr=index_height&g0.tab=0'
-      ```
-Click on ```Status``` tab then ```Runtime & Build Information``` tab to see if prometheus loaded and is pulling stats for further user querying.  
-  
 ---
 # Install Electrum
 [Official website](https://electrum.org/#download)
@@ -827,23 +773,6 @@ The Electrum config file is located in a hidden Electrum directory, however this
       - server: localhost:50001:t = Connect to electrs without ssl
 
 The next time we start Electrum we can simply run the command ```electrum``` and let the config file handle the rest.
-
-## Create a Test wallet
-We will create a new test (hot) wallet in Electrum to confirm and verify our config settings are correct.
-1. Start electrum. Run:
-   ```bash copy
-   electrum
-   ```
-2. At the welcome screen. Click ```Next```.
-3. Rename ```default_wallet``` to ```test_hot_wallet``` (I think this name is less confusing). Click ```Next```.                                                                        
-4. Select ```I already have a seed```. Click ```Next```.
-5. Head over to [CoinPlate](https://getcoinplate.com/bip39-seed-phrase-mnemonics-generator-offline-online-tool/?v=2a6039655313 "CoinPlate's Homepage") and generate a Bip39 24 word seed phrase .
-   Copy and save the seed phrase to a note on your desktop. Don't worry about security as this is just a simple test wallet for testing configuration settings.
-6. Copy and paste the seed phase into the Electrum box that is displayed.
-7. Click ```Options```, and select ```Bip39 seed```. Click ```OK```. Ignore the warning and click ```Next```.
-8. Keep ```native segwit (p2wpkh)``` selected and click ```Next```.
-9. Leave the password fields blank, we wont encrypt the wallet data as this is just a test wallet, click ```Next```.
-10. Electrum - enable update check. Click ```No```. We will always verify and update our software ourselves.
 
 ## Add some watch-only addresses
 We will use these to confirm Electrs & Bitcoin Knots are connected correctly.
@@ -1022,41 +951,6 @@ chmod 644 ~/.icons/specter-logo.png
 chmod +x ~/Desktop/specter.desktop
 ```
 
-## Set UDEV Rules for Hardware Wallets
-
-Hardware wallets require specific UDEV rules to function properly with Linux systems.
-
-- Create plugdev group and add your user. Run:
-```bash copy
-sudo groupadd plugdev
-sudo usermod -aG plugdev `whoami`
-```
-
-- Download UDEV rules for popular hardware wallets. Run:
-```bash copy
-# Create temporary directory for UDEV rules
-mkdir -p ~/temp-udev && cd ~/temp-udev
-
-# Download Specter's comprehensive UDEV rules collection
-wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-coinkite.rules
-wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-hid-digitalbitbox.rules
-wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-keepkey.rules
-wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-ledger.rules
-wget https://raw.githubusercontent.com/cryptoadvance/specter-desktop/master/udev/51-usb-trezor.rules
-```
-
-- Install UDEV rules. Run:
-```bash copy
-sudo cp *.rules /etc/udev/rules.d/
-sudo udevadm trigger
-sudo udevadm control --reload-rules
-```
-
-- Clean up temporary files. Run:
-```bash copy
-cd ~ && rm -rf ~/temp-udev
-```
-  
 ## Specter configuration
 - Start Bitcoin Knots by running `bitcoin-qt` or `bitcoind -daemon`
 - Start Specter by double-clicking the desktop icon or running `./start-specter-desktop.sh` (this will automatically open your browser)
@@ -1107,13 +1001,6 @@ If you see SQLAlchemy errors during Specter installation:
 - Remove the Spectrum plugin: `pip uninstall cryptoadvance-spectrum -y`
 - Reinstall Specter: `pip install --force-reinstall cryptoadvance.specter`
 
-## Hardware Wallet Issues
-
-If hardware wallets aren't detected:
-- Ensure UDEV rules are installed correctly
-- Check that your user is in the plugdev group: `groups $USER`
-- Try unplugging and reconnecting the device
-- Restart Specter after connecting hardware wallet
   
 ---
 # Install Sparrow wallet
@@ -1189,7 +1076,7 @@ Read Sparrows official [docs](https://sparrowwallet.com/docs/) to get the most o
 
 ---
 # Hardware Wallet support
-Linux systems require udev rules from each Hardware device manufacturer to allow the USB functionality to work. These were all included during the installation of Specter (as Specter privided a handy folder containing all the most popular hardware device Udev rules for Linux).
+For airgapped hardware wallets, no USB connection or UDEV rules are required as the devices are never connected to the computer.
 
 ## Electrum HWW support
 [Reference Link](https://electrum.readthedocs.io/en/latest/hardware-linux.html)
@@ -1204,29 +1091,6 @@ Linux systems require udev rules from each Hardware device manufacturer to allow
 3. Upgrade pip back to latest version
    ```bash copy
    sudo pip3 install --upgrade pip
-   ```
-   
-## Install Ledger Live (optional)
-[Reference Link](https://support.ledger.com/article/4404389606417-zd)
-
-If you are still using Ledger or needing access to to the Ledger Live suite then follow below instructions to install.
-
-1. Add udev rules for Ledger (if not already done so) to allow USB access to your Ledger device
-   ```
-   wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/master/add_udev_rules.sh | sudo bash
-   ```
-2. Install Ubuntu 24.04 LTS dependency
-   ```bash copy
-   sudo add-apt-repository universe
-   ```
-3. Head over to [Official website](https://download.live.ledger.com/latest/linux) and download the Linux .Appimage file to your Downloads folder.
-4. Shorten the name and move to the ```home``` directory
-   ```bash copy
-   mv ledger-live-desktop-2.91.1-linux-x86_64.AppImage ~/LedgerLive-2.91.1.AppImage
-   ```
-5. Run Ledger-Live for the first time (after the first run the app will be added to your ```Show Applications``` folder via the desktop Toolbar.
-   ```bash copy
-   cd ~ && ./LedgerLive-2.91.1.AppImage
    ```
    
 ---
