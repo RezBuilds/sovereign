@@ -156,57 +156,38 @@ Flashing a USB drive with an ISO image will place a write protection on the USB 
 
 
 ---
-## Configure Ubuntu
-Once Installation has finished.
-1. Update package manager. Run:
-   ```bash copy
-   sudo apt update && sudo apt upgrade
-   ```
+## Complete Ubuntu Setup
+Once Ubuntu installation has finished, complete the following setup steps:
 
-## Install Git
-1. Install Git
-   ```bash copy
-   sudo apt install git
-   ```
+### 1. Initial Configuration
+```bash copy
+# Update package manager
+sudo apt update && sudo apt upgrade
 
-## Install Libfuse
-[Official website](https://github.com/AppImage/AppImageKit/wiki/FUSE)
+# Install Git
+sudo apt install git
 
-Ubuntu 24.04 LTS dependencies to run Specter apps.
-1. Install libfuse2
-   ```bash copy
-   sudo add-apt-repository universe && sudo apt install libfuse2
-   ```
+# Install dependencies for Specter
+sudo add-apt-repository universe && sudo apt install libfuse2
+```
 
-## Adjust the power settings
-Because you will want to run your node for 6+ hours a day (24hrs is better) you will need to adjust the power & lid closure settings to prevent the laptop entering into a low power mode, slowing or halting network traffic.
+### 2. Power Management Setup
+Because you will want to run your node for 6+ hours a day (24hrs is better), configure power settings:
 
-### Navigate to the Ubuntu power settings menu:
-Show Apps > Settings > Power Settings.
+**GUI Settings:**
+- Navigate to: Show Apps > Settings > Power Settings
+- Set Power Mode = Balanced
+- Set Automatic Power Saver = Off  
+- Set Automatic suspend = Off
 
-Make the following adjustments:
-- Power Mode = Balanced
-- Automatic Power Saver = Off
-- Automatic suspend = Off
-
-Then close the settings menu.
-
-## Laptop lid, do nothing when closed
-1. Navigate to systemd directory. Run:
-   ```bash copy
-   cd /etc/systemd
-   ```
-2. Open logind configuration file 
-   ```bash copy
-   sudo nano logind.conf
-   ```
-3. Uncomment ```HandleLidSwitch``` and make it equal to ```HandleLidSwitch=ignore```, save and exit.
-   
-
-4. Restart the systemd daemon (be aware that this will log you out of Ubuntu) with this command
-   ```bash copy
-   sudo systemctl restart systemd-logind
-   ```
+**Laptop Lid Configuration:**
+```bash copy
+# Configure laptop lid to do nothing when closed
+sudo nano /etc/systemd/logind.conf
+# Uncomment and set: HandleLidSwitch=ignore
+sudo systemctl restart systemd-logind
+```
+*Note: This will log you out of Ubuntu*
 
 ___
 # Install Proton VPN
@@ -677,375 +658,95 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
    du ~/electrs/db
    ```
 ---
-# Install Electrum
+# Wallet Setup (Choose One or More)
+
+## Prerequisites
+- Bitcoin Knots must be running and synced
+- Electrs must be running and indexed
+- Wait for `INFO electrs::chain chain updated` before starting wallets
+
+## Electrum Wallet
 [Official website](https://electrum.org/#download)
 
-Electrum was first released as open-source back in 2011, making it one of the most trusted Bitcoin wallets available.
-1. Download ThomasV public key and import into keychain. Run:
-   ```bash copy
-   cd ~/Downloads && wget https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc && gpg --import ThomasV.asc
-   ```
-2. Install dependencies. Run:
-   ```bash copy
-   sudo apt-get install python3-pyqt5 libsecp256k1-dev python3-cryptography
-   ```
-3. Download package
-   ```bash copy
-   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz
-   ```
-4. Verify signatures
-   ```bash copy
-   wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz.asc && gpg --verify Electrum-4.5.8.tar.gz.asc
-   ```
-5. Install with pip
-   ```bash copy
-   sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.8.tar.gz
-   ```
-6. Clean up
-   ```bash copy
-   cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc ThomasV.asc
-   ```
+**Installation:**
+```bash copy
+# Download and verify
+cd ~/Downloads
+wget https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc && gpg --import ThomasV.asc
+sudo apt-get install python3-pyqt5 libsecp256k1-dev python3-cryptography
+wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz
+wget https://download.electrum.org/4.5.8/Electrum-4.5.8.tar.gz.asc && gpg --verify Electrum-4.5.8.tar.gz.asc
+sudo apt-get install python3-setuptools python3-pip && python3 -m pip install --user Electrum-4.5.8.tar.gz
+cd ~/Downloads && sudo rm -r Electrum-4.5.8.tar.gz Electrum-4.5.8.tar.gz.asc ThomasV.asc
+```
 
+**Configuration:**
+```bash copy
+# Launch with Tor settings
+electrum --oneserver --server 127.0.0.1:50001:t --proxy socks5:127.0.0.1:9150
+# Close immediately, then edit config
+cd ~/.electrum && nano config
+```
 
----
-## Configure Electrum
-The Electrum config file is located in a hidden Electrum directory, however this directory is only created once Electrum is run for the first time. To prevent any privacy leaks we can run Electrum with some flags to make sure it only connects to our Electrs server.
-1. Launch Electrum using the following flags
-   ```bash copy
-   electrum --oneserver --server 127.0.0.1:50001:t --proxy socks5:127.0.0.1:9150
-   ```
-   Once Electrum loads, immediatly close it down again so we can edit the config file that was just created.
- 
-2. Open Electrum config file
-   ```bash copy
-   cd ~/.electrum && nano config
-   ```
-6. Replace the contents of the file with the below. save and exit:
-   ```bash copy
-   {
-       "auto_connect": false,
-       "check_updates": false,
-       "decimal_point": 8,
-       "log_to_file": true, 
-       "oneserver": true,
-       "proxy": "socks4:localhost:9050",
-       "proxy_password": "",
-       "proxy_user": "",
-       "server": "localhost:50001:t"
-   }
-   ```
-   This is what each config setting does:
-      - auto_connect: false = Don't auto connect to read headers at startup
-      - check_updates: false = Dont check for updates
-      - decimal_point: 8 = Use BTC not sats
-      - log_to_file: true = Log debugging to logs/ folder in data directory 
-      - oneserver: true = Only connect to one server
-      - proxy: socks4:localhost:9050 = Use tor proxy
-      - proxy_password: "" = No password for tor proxy
-      - proxy_user: "" = No user deets for tor proxy
-      - server: localhost:50001:t = Connect to electrs without ssl
+**Config file contents:**
+```json
+{
+    "auto_connect": false,
+    "check_updates": false,
+    "decimal_point": 8,
+    "log_to_file": true, 
+    "oneserver": true,
+    "proxy": "socks4:localhost:9050",
+    "proxy_password": "",
+    "proxy_user": "",
+    "server": "localhost:50001:t"
+}
+```
 
-The next time we start Electrum we can simply run the command ```electrum``` and let the config file handle the rest.
-
-## Add some watch-only addresses
-We will use these to confirm Electrs & Bitcoin Knots are connected correctly.
-1. From the Electrum window press CTRL+N, this will bring up the ```New/Restore``` menu.
-2. Choose a name for your wallet, you can just name the wallet something like ```satoshi_address``` or ```mr100```. Click ```Next```.
-3. Select ```Import Bitcoin addresses or private keys```, click ```Next```.
-4. Add any bitcoin addresses that you would like to watch. A simple Google search can return some interesting famous bitcoin addresses. I find it more intuative to create a new watch wallet for each address. Out of curiosty and fun, I added the following three addresses to three individual wallets named ```satoshi_address, huobi_address and mr100_address```. Just add the actual address (long string of 34 characters). i.e if you want to watch mr100 bitcoin address just add ```1Ay8vMC7R1UbyCCZRVULMV7iQpHSAbguJP``` and click ```Next```.
-
-   - 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa (satoshi_address, shows first Bitcoin transaction to Hal Finney) 
-   - 35hK24tcLEWcgNA4JxpvbkNkoAcDGqQPsP (Huobi_address = Huobi exchange hot wallet)
-   - 1Ay8vMC7R1UbyCCZRVULMV7iQpHSAbguJP (mr100_address = Unknown, transacts daily in blocks of 100 BTC)
-   
-6. No need to set a wallet password as your just watching someone elses Bitcoin address. Click ```Finish```.
-
-Footnote: Although it's great to watch something smash buy bitcoin in blocks of 100 at the same time there is always an equal seller for instance the legendary Gummo telling the world in 2024 that he's selling 72,572 bitocoin in blocks of 100🤔
-
-[X post](https://x.com/pete_rizzo_/status/1837477503520149913?t=CVB1uNKjNts1G2JASxUpXA&s=19) - The Bitcoin Historian @pete_rizzo_
-
-_"I'm taking steps to sell the remaining 72,572 bitcoins responsibly! 💼 No deals with organised crime, third parties, or middlemen - just direct transactions with integrity. Selling in lots of 100 for transparency only. Let's keep it real & legal in the crypto world!💰" - Gummo_
-
----
-# Test Launch Bitcoin Knots, Electrs & Electrum
-1. Start Bitcoin Knots by running ```bitcoin-qt``` to use the GUI or to run a daemon. Run:
-   ```bash copy
-   bitcoind -datadir=/media/<User>\<External_SSD_Name> -server -daemon
-   ```
-2. Start Electrs once Bitcoin Knots has fully loaded
-   ```bash copy
-   electrs --log-filters INFO --network bitcoin --db-dir ~/electrs/db --daemon-dir /media/<User>\<External_SSD_Name>
-   ```
-5. Start Electrum once Electrs has fully indexed and is at te blockchain tip. You can check this by looking at the Terminal printout and waiting for the ```INFO electrs::chain chain updated```. Electrum will not sync until Electrs has synced to the tip of the Blockchain. So wait for the ```INFO electrs::chain chain updated``` and you are good to launch Electrum.
-   ```bash copy
-   electrum
-   ```
-If the ```Network``` light in the bottom righthand corner of Electrum GUI is blue then you are connected to your own node (which we configured & verified is running behind Tor). It is now safe to interact with your real wallets.
-
----
-# Install Specter wallet
+## Specter Desktop
 [Official Website](https://specter.solutions/index.html)
 
-Specter is an open-source Bitcoin wallet, first released June 2020. It offers an intuative desktop GUI ideal for the creation and management of MultiSig or SingleSig wallets with extensive HWW support.
-
-## Install Python 3.10 for Specter Compatibility
-
-Bitcoin Knots 28.1 requires a newer version of Specter than the current binary releases support. We'll install Specter via Python virtual environment for the latest compatible version.
-
-- Add deadsnakes PPA for Python 3.10. Run:
+**Installation:**
 ```bash copy
+# Install Python 3.10 and Specter
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install python3.10 python3.10-venv python3.10-dev python3-venv
-```
-
-- Create Python virtual environment with Python 3.10. Run:
-```bash copy
 python3.10 -m venv ~/.specter-env
 source ~/.specter-env/bin/activate
-```
-
-- Install Specter Browser App. Run:
-```bash copy
 pip install --upgrade pip
 pip install cryptoadvance.specter
-```
-
-- Remove problematic Spectrum plugin (causes SQLAlchemy conflicts). Run:
-```bash copy
 pip uninstall cryptoadvance-spectrum -y
 ```
 
-- Check installed version. Run:
-```bash copy
-pip show cryptoadvance.specter
-```
+**Configuration:**
+- Start Bitcoin Knots: `bitcoind -daemon`
+- Start Specter: `python -m cryptoadvance.specter server --host 127.0.0.1 --port 25442`
+- Open browser: `http://127.0.0.1:25442`
+- Connect to Bitcoin Knots: Host=127.0.0.1, Port=8332, Username/Password from bitcoin.conf
 
-- Create launch script for easy startup. Run:
-```bash copy
-nano ~/start-specter-desktop.sh
-```
-
-- Add the following content to the script, save and exit:
-```bash copy
-#!/bin/bash
-
-# Function to check if Specter is already running
-check_specter() {
-    if lsof -Pi :25442 -sTCP:LISTEN -t >/dev/null 2>&1; then
-        return 0  # Specter is running
-    else
-        return 1  # Specter is not running
-    fi
-}
-
-# Check if Specter is already running
-if check_specter; then
-    echo "Specter is already running, opening browser..."
-    brave-browser http://127.0.0.1:25442
-    exit 0
-fi
-
-# Start Specter server
-echo "Starting Specter server..."
-cd ~
-source ~/.specter-env/bin/activate
-
-# Start Specter in background
-nohup python -m cryptoadvance.specter server --host 127.0.0.1 --port 25442 > ~/.specter/specter.log 2>&1 &
-
-# Wait for server to start (check every second for up to 10 seconds)
-echo "Waiting for Specter to start..."
-for i in {1..10}; do
-    if check_specter; then
-        echo "Specter started successfully!"
-        sleep 2  # Give it a moment to fully initialize
-        brave-browser http://127.0.0.1:25442
-        exit 0
-    fi
-    sleep 1
-done
-
-echo "Failed to start Specter server. Check ~/.specter/specter.log for errors."
-exit 1
-```
-
-- Make the script executable. Run:
-```bash copy
-chmod +x ~/start-specter-desktop.sh
-```
-
-- Download an application icon for Specter:
-I think the red Pacman logo looks good for Spector.
-
-Head over to [FreeiconsPNG](https://www.freeiconspng.com/download/25184) and download the Pacman PNG logo to your Downloads folder.
-
-- Move Pacman logo to icons folder. Run:
-```bash copy
-mv ~/Downloads/pacman-png-25184.png ~/.icons/specter-logo.png
-```
-Adjust the filename to match what you actually downloaded
-
-```bash copy
-
-# Move your pacman logo to the icons folder
-mv ~/Downloads/pacman-png-25184 ~/.icons/specter-logo.png
-# Or copy if you want to keep the original
-cp ~/path/to/your/pacman.png ~/.icons/specter-logo.png
-```
-
-- Create desktop launcher. Run:
-```bash copy
-nano ~/Desktop/specter.desktop
-```
-
-- Add the following content, save and exit:
-```bash copy
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=true
-Icon=/home/rez/.icons/specter-logo.png
-Name=Specter Desktop
-Exec=/home/<USER>/start-specter-desktop.sh
-Comment=Bitcoin wallet with hardware wallet support
-```
-Replace <USER> with your actual username.
-
-- Make desktop launcher executable. Run:
-```bash copy
-chmod +x ~/Desktop/specter.desktop
-```
-
--  Make sure files have correct permissions. Run:
-```bash copy
-chmod 644 ~/.icons/specter-logo.png
-chmod +x ~/Desktop/specter.desktop
-```
-
-## Specter configuration
-- Start Bitcoin Knots by running `bitcoin-qt` or `bitcoind -daemon`
-- Start Specter by double-clicking the desktop icon or running `./start-specter-desktop.sh` (this will automatically open your browser)
-You will be greeted with Specters welcome screen providing the options to configure the application. 
-
-8. Use the below config settings:
-   - Name = Bitcoin Knots
-   - Username = <UserName> (matching the rpcuser details in bitocoin.conf file)
-   - Password = <Password> (matching the rpcpassword details in bitcoin.conf file)
-   - Host = 127.0.0.1
-   - Port = 8332
-   
-9. Click ```Connect```
-
-Specter will automatically utilize the existing Tor configuration used for Bitcoin Knots. To validate this yourself, you can check the Specter Desktop logs for any Tor-related messages or errors. If everything is configured correctly, you should see no issues or warnings regarding Tor.
-
-10. Check Specter logs for any errors/issues
-    ```bash copy
-    cd ~/.specter && nano specterApp.log
-    ```   
-11. Clean up, delete old files/directories
-    ```bash copy
-    cd ~/Downloads && rm -r Specter   
-    ```
-Read Specters official [docs](https://docs.specter.solutions/desktop/) to get the most out of the software wallets functionality.
-
----
-# Troubleshooting
-
-## Specter Connection Issues
-
-If you encounter `KeyError: 'error'` when connecting Specter to Bitcoin Knots 28.0:
-
-1. **Ensure you're using the Python installation method**: Binary releases may not support Bitcoin Knots 28.0
-2. **Check Bitcoin Knots is running**: Run `bitcoin-cli getblockchaininfo` to verify
-3. **Verify RPC credentials**: Ensure rpcuser and rpcpassword in bitcoin.conf match Specter settings
-4. **Check Specter version**: Run `pip show cryptoadvance.specter` - should be v2.1.1 or later
-
-## Port Conflicts
-
-If you get "Port 25442 is in use":
-- Kill existing Specter processes: `pkill -f "cryptoadvance.specter"`
-- Or use a different port: `python -m cryptoadvance.specter server --host 127.0.0.1 --port 25443`
-
-## SQLAlchemy Conflicts
-
-If you see SQLAlchemy errors during Specter installation:
-- Remove the Spectrum plugin: `pip uninstall cryptoadvance-spectrum -y`
-- Reinstall Specter: `pip install --force-reinstall cryptoadvance.specter`
-
-  
----
-# Install Sparrow wallet
+## Sparrow Wallet
 [Official Website](https://sparrowwallet.com/)
 
-Sparrow is an open-source Bitcoin wallet, first released September 2020, offering exellent wallet encryption, keeping the wallet open for as limited time as possible for added security. The encrypted wallet file can also be saved to a seperate location (external flash drive etc.) for additional plausible deniability. 
+**Installation:**
+```bash copy
+# Download and verify
+wget https://keybase.io/craigraw/pgp_keys.asc | gpg --import
+wget https://sparrowwallet.com/download/sparrow-2.2.3-manifest.txt.asc && gpg --verify sparrow-2.2.3-manifest.txt.asc
+wget https://sparrowwallet.com/download/sparrow-2.2.3-manifest.txt && sha256sum --check sparrow-2.2.3-manifest.txt --ignore-missing
+sudo dpkg -i sparrow_2.2.3-1_amd64.deb
+```
 
-1. Verify your CPU architecture. Run:
-   ```bash copy
-   dpkg --print-architecture
-   ```
-2. Head over to [Sparrow Downloads](https://sparrowwallet.com/download/) and download:
-   - sparrow_2.2.3-1_amd64.deb (for Ubuntu 24.04)
-   - sparrow-2.2.3-manifest.txt
-   - sparrow-2.2.3-manifest.txt.asc
-   
-   Save all files to your Downloads folder.
-   
-3. Scroll the Sparrow/Downloads page and follow the instruction under the heading ```Verifying the release``` to verify your download. It doesnt make sense to install software then use that software to verify itself so we will verify manually using gpg. Scroll down the official Sparrow download page further for the manual vefification instructions using gpg.
-4. Download and import craigraw/pgp_keys.asc
-   ```bash copy
-   curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import
-   ```
-5. Verify the signature of the manifest file
-   ```bash copy
-   cd ~/Downloads && gpg --verify sparrow-2.2.3-manifest.txt.asc
-   ```
-6. Verify the download file
-   ```bash copy
-    sha256sum --check sparrow-2.2.3-manifest.txt --ignore-missing
-   ```
-   If you recieve the ```OK``` result to your terminal then the solftware is authentic and safe to install. This also means that we can now use Sparrows veification feature to easily verify future software from the GUI interface if we wish.
-   
-## Install and configure  
-7. Navigate to Downloads folder and install the downloaded .deb file. This will save the app to your ```Show Applications``` folder, that can be accessed from your Desktop.
-   ```bash copy
-   cd ~/Downloads && sudo dpkg -i sparrow_2.2.3-1_amd64.deb  
-   ```
-8. Start Sparrow by double clicking the app icon.
-9. Read the welcome messages and then choose ```Server: type```, ```Private Electrum``` (the blue toggle switch).
-10. Enter these config settings
-   - URL: 127.0.0.1 50001
-   - Use SSL: toggle switch ```Off```
-   - Certificate: (leave the field empty)
-   - Use Proxy: toggle switch ```On``` (blue)
-   - Proxy URL: 127.0.0.1 9050
-11. Make sure Bitcoin Knots and Electrs are running then click on the    
-```Test Connection``` button. You should be greeted with the following text:
-    ```
-    Connected to electrs/0.10.x on protocol version 1.4
-    Batched RPC enabled.
-    Server Banner: Welcome to electrs 0.10.x (Electrum Rust Server)!
-    ```
-12. Clean up, delete old files/directories
-    ```bash copy
-     cd ~/Downloads && rm -r sparrow_2.2.3-1_amd64.deb sparrow-2.2.3-manifest.txt.asc sparrow-2.2.3-manifest.txt
-    ```
-### Important: Linux Package Rename
-**Note for Linux users:** The Sparrow package has been renamed from `sparrow` to `sparrowwallet` starting with version 2.2.0. If you have an older version installed, you may need to:
+**Configuration:**
+- Server type: Private Electrum
+- URL: 127.0.0.1:50001
+- Use SSL: Off
+- Use Proxy: On (127.0.0.1:9050)
 
-13. Remove the old package:
-    ```bash
-    sudo apt remove sparrow
-    # Check if old files exist and remove manually:
-    sudo rm -rf /opt/sparrow
-    ```
-14. Verify the new installation is in the correct location. Run:
-    ```bash copy
-    ls /opt/sparrowwallet
-    ```
-       
-Read Sparrows official [docs](https://sparrowwallet.com/docs/) to get the most out of the software wallets functionality. 
+## Verification
+If the Network light in the bottom right corner of any wallet is blue, you're connected to your own node running behind Tor. It's now safe to interact with your real wallets.
+
 
 ---
 # Hardware Wallet support
@@ -1067,126 +768,63 @@ For airgapped hardware wallets, no USB connection or UDEV rules are required as 
    ```
    
 ---
-# Configure desktop
-## Build Bitcoin node desktop icon
-Build a launchable Desktop icon called ```Bitcoin``` that when clicked will launch Bitcoin Knots and Electrs, ready for you to then open the bitcoin wallet of your choice.
-1. First we need to create an executable bash script, we'll call it ```node.sh```
-   ```bash copy
-   nano node.sh
-   ```
-2. Edit the file with your application launch paths
-   ```bash copy
-   #!/bin/bash
-   
-   # launch bitcoin-qt as a background job
-   #/usr/local/bin/bitcoin-qt &
-   
-   # launch bitcoind as a background job
-   /usr/local/bin/bitcoind &
-   
-   # Sleep to allow Bitcoin Knots to load, if electrs throws an error then increase the sleep time
-   sleep 5
-   
-   # launch electrs
-   /usr/local/bin/electrs --log-filters INFO
-   
-   exit 0
+# Desktop Configuration
 
-   ```
+## Create Desktop Icons
 
-3. Make the file executable
-   ```bash copy
-   chmod +x node.sh
-   ```
-4. Check if you have a .icon directory
-   ```bash copy
-   cd ~/.icon
-   ```
-   If you get the error ```No such file or directory```. Then create the directory.
-   ```bash copy
-      mkdir ~/.icons
-   ```  
-4. Move to ```~/.icons``` directory and download a Bitcoin logo icon
-   ```bash copy
-   cd ~/.icons && wget https://bitcoin.design/assets/images/guide/getting-started/visual-language/bitcoin-symbol.svg
-   ```
-5. Shorten the file name and move the file to the icon directory
-   ```bash copy
-   mv bitcoin-symbol.svg btclogo.svg
-   ```
-6. Create a new file named bash.desktop in the home directory (same location as your node.sh file). This file will contain the desktop entry information.
-   ```bash copy
-   cd ~ && nano bitcoin.desktop
-   ```
-7. Edit the file adding the following information, save and exit:
-   ```bash copy
-   [Desktop Entry]
-   Version=1.0
-   Type=Application
-   Terminal=true
-   Icon=btclogo
-   Name=Bitcoin
-   Exec=/home/<user>/node.sh
-   Comment=Run Bash Script
-   ```
+### General Process
+1. **Create executable script**: `nano ~/app-name.sh`
+2. **Download icon**: `wget [icon-url]` to `~/.icons/`
+3. **Create .desktop file**: `nano ~/app-name.desktop`
+4. **Make executable**: `chmod +x ~/app-name.desktop`
+5. **Move to desktop**: `mv ~/app-name.desktop ~/Desktop/`
+6. **Enable launching**: Right-click icon → "Allow Launching"
 
-8. Validate the bash.desktop file using the desktop-file-validate command
-   ```bash copy
-   desktop-file-validate bitcoin.desktop
-   ```
-   If there are no errors, the file is valid.
+### Bitcoin Node Desktop Icon
+**Script content** (`~/node.sh`):
+```bash
+#!/bin/bash
+/usr/local/bin/bitcoind &
+sleep 5
+/usr/local/bin/electrs --log-filters INFO
+exit 0
+```
 
-9. Move the bash.desktop file to Desktop
-   ```bash copy
-   mv bitcoin.desktop ~/Desktop
-   ```
+**Desktop file** (`~/bitcoin.desktop`):
+```ini
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Icon=btclogo
+Name=Bitcoin
+Exec=/home/<user>/node.sh
+Comment=Launch Bitcoin Node
+```
 
-   Log out and log back in to your system to ensure the icon is updated.
+**Icon setup**:
+```bash copy
+mkdir -p ~/.icons
+cd ~/.icons && wget https://bitcoin.design/assets/images/guide/getting-started/visual-language/bitcoin-symbol.svg
+mv bitcoin-symbol.svg btclogo.svg
+```
 
-10. Right-click the desktop icon, select ```Allow Launching``` (or similar). The icon should now be visible and launchable.
+### Electrum Desktop Icon
+**Desktop file** (`~/electrum.desktop`):
+```ini
+[Desktop Entry]
+Name=Electrum
+Comment=Lightweight Bitcoin Wallet
+GenericName=Bitcoin Wallet
+Exec=/home/<USER>/.local/bin/electrum
+Icon=electrum
+Type=Application
+```
 
-11. Double click the desktop (Bitcoin) icon to Launch Bitcoin-qt and electrs together, or use the Terminal command:
-    ```bash copy
-    ./node.sh
-    ```
-## Build Electrum desktop icon
-Build a launchable Desktop icon called ```Electrum``` that when clicked will launch the Electrum wallet.
-1. Create a new .desktop file
-  ``` bash copy
-  touch ~/Desktop/electrum.desktop
-  ```
-
-2. Edit the new .desktop file
-  ```bash copy
-  nano ~/Desktop/electrum.desktop
-  ```
-3. Add the following into the file, save and close.
-   ```bash copy
-   [Desktop Entry]
-   Name=Electrum
-   Comment=Lightweight Bitcoin Wallet.
-   GenericName=Bitcoin Wallet.
-   Exec=/home/<USER>/.local/bin/electrum
-   Icon=electrum
-   Type=Application
-   ```
-4. Udate the shortcut’s permissions:
-   ```bash copy
-   chmod +x ~/Desktop/electrum.desktop
-   ```
-5. Also add a shortcut to your app-menu
-   ```bash copy
-   sudo cp ~/Desktop/electrum.desktop /usr/share/applications/
-   ```
-6. Right-click the desktop icon, select ```Allow Launching``` (or similar). The icon should now be visible and launchable.
-
-7. Double click the desktop (Electrum) icon to Launch Electrum.  
-
-## Remove HOME folder desktop icon
-1. Remove Home folder icon
-  ``` bash copy
-  gsettings set org.gnome.shell.extensions.ding show-home false
-  ```
+### Optional: Remove Home Folder Icon
+```bash copy
+gsettings set org.gnome.shell.extensions.ding show-home false
+```
 
 
 ---
