@@ -15,27 +15,9 @@ Easy to follow instructions to build a secure and sovereign Linux based Bitcoin 
 
 Because external guides can be out-of-date and not actively maintained. This guide has a subheading stating the last update and a link to each official software project page for further self verification.
 
-Think of this as a general installation guide with additional trouble shooting tips.
+Think of this as a general installation guide for non-technical users.
 
 **Need help implementing this guide?** I offer private pseudonymous consultation services for non-technical users. Visit [sovereign101.com/consultation](https://sovereign101.com/consultation) for 1-on-1 expert guidance.
-
-# Why run a bitcoin node?
-
-Inspired by [Arman The Parman](https://armantheparman.com/why-should-you-run-your-own-bitcoin-node/)
-with a few personal additions...
-
-1. You can maximise privacy. Connecting your bitcoin wallet to your a node means not relying on someone else's copy of the timechain data, you won't divulge your IP (your location!) nor your bitcoin addresses (and their balances). It's harder for potential attackers to even know you exist and provides protection from surveillance firms who WILL co-operate with your local ruler when it's confiscation time during the inevitable collapse of fiat.
-
-2. You can verify if you have been paid - like checking a gold payment is real by melting it down. A bitcoin payment must register on your copy of the timechain.
-
-3. Defend the rules of your money if there is a contentious fork - no one can force you to run Bitcoin Larry Fink's Vision, for example.
-
-4. Be one of many cockroaches that need to be destroyed to wipe out the UTXO set (who owns what). Note: even that doesn't kill Bitcoin, Bitcoin is an idea. They'd have to kill all the Bitcoiners.
-
-5. Help someone else run a node, or provide the infrastructure so someone else can trust you and connect to your node. Remember, being a human node is not the power to run the software but the power to choose the right software to connect to - you can be that option for people, especially those you orange pill, instead of letting them connect to a random node.
-
-6. Enjoy peace of mind, and gain a greater appreciation for the power of Bitcoin. You’ll probably end up buying more, and accumulating more girlfriends.
-
 
 ---
 ## HARDWARE
@@ -59,6 +41,23 @@ Most entry level laptops should meet the above specifications. Just upgrade the 
 **Storage Upgrade**: At time of writing the Bitcoin blockchain is around 600GB of data so you will almost certainly need to upgrade the laptops internal SSD card. The NVMe SSD I upgraded to was this [2TB SSD card](https://amzn.to/3TUmjIT) for $93.
 
 **USB Drive**: For creating bootable Ubuntu installation media, I recommend using a [32GB USB drive](https://amzn.to/46nhQG8) with good read/write speeds.
+
+# Why run a bitcoin node?
+
+Inspired by [Arman The Parman](https://armantheparman.com/why-should-you-run-your-own-bitcoin-node/)
+with a few personal additions...
+
+1. You can maximise privacy. Connecting your bitcoin wallet to your a node means not relying on someone else's copy of the timechain data, you won't divulge your IP (your location!) nor your bitcoin addresses (and their balances). It's harder for potential attackers to even know you exist and provides protection from surveillance firms who WILL co-operate with your local ruler when it's confiscation time during the inevitable collapse of fiat.
+
+2. You can verify if you have been paid - like checking a gold payment is real by melting it down. A bitcoin payment must register on your copy of the timechain.
+
+3. Defend the rules of your money if there is a contentious fork - no one can force you to run Bitcoin Larry Fink's Vision, for example.
+
+4. Be one of many cockroaches that need to be destroyed to wipe out the UTXO set (who owns what). Note: even that doesn't kill Bitcoin, Bitcoin is an idea. They'd have to kill all the Bitcoiners.
+
+5. Help someone else run a node, or provide the infrastructure so someone else can trust you and connect to your node. Remember, being a human node is not the power to run the software but the power to choose the right software to connect to - you can be that option for people, especially those you orange pill, instead of letting them connect to a random node.
+
+6. Enjoy peace of mind, and gain a greater appreciation for the power of Bitcoin. You'll probably end up buying more, and accumulating more girlfriends.
 
 ---
 ## SOFTWARE
@@ -138,8 +137,6 @@ installation instructions to install Ubuntu.
 [Create partition table](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick "https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick") (not always required).
 
 
-## Reusing bootable USB
-Flashing a USB drive with an ISO image will place a write protection on the USB drive, to prevent accidental deletion of your bootable USB drive data. If you make a mistake and need to reformat the USB drive then use something like [Aomei](https://www.aomeitech.com/download.html#pa "Aomitech.com") to remove the write protection so you can reformat the drive and start again (or to reclaim the USB drive to be used for something else).
 
 
 ---
@@ -547,8 +544,7 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
     ```bash
     cd electrs
     ```
-## Build Electrs
-Note: you need to have enough free RAM to build electrs. The build will fail otherwise. Close those 100 old tabs in the browser. 
+## Build Electrs 
 
 12. Build Electrs (~20 minutes):
     ```bash 
@@ -561,7 +557,7 @@ Note: you need to have enough free RAM to build electrs. The build will fail oth
     Finished release [optimized] target(s) in 5m 53s
     ```
 
-    I ran the command, suggested in the above warning, which completed the build without further errors.
+    If you see warnings, run:
     ```bash
     cargo fix --lib -p electrs
     ```
