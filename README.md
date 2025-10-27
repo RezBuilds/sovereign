@@ -87,6 +87,8 @@ For all Bitcoin software, it’s a particularly important security step to verif
 
 ___
 # Install Ubuntu 24.04 LTS
+**Estimated time: 30-45 minutes**
+
 I installed Ubuntu 24.04 LTS as it's the latest stable LTS release, providing security updates until 2029.
 
 ## Deactivate Secure-Boot
@@ -153,6 +155,8 @@ installation instructions to install Ubuntu.
 
 ---
 ## Complete Ubuntu Setup
+**Estimated time: 15-20 minutes**
+
 Once Ubuntu installation has finished, complete the following setup steps:
 
 ### 1. Initial Configuration
@@ -253,6 +257,8 @@ A quick solution for encrypted files/messages.
 
 ---
 # Install Bitcoin Knots
+**Estimated time: 20-30 minutes**
+
 Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 - Download the latest Linux(tgz) 64 bit version and save to Downloads folder
 - Bitcoin Knots is a derivative of Bitcoin Core with enhanced features, more conservative policies, and additional privacy options
@@ -277,6 +283,7 @@ Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 
 ---
 ## Run Bitcoin Knots (start initial blockchain download)
+**Estimated time: 1-3 days (initial sync)**
 
 1. Start Bitcoin Knots:
    ```bash
@@ -364,7 +371,11 @@ You can easily switch between Bitcoin Core and Bitcoin Knots:
 - No need to re-download the blockchain
   
 ---
+## 🎯 Progress Checkpoint: Ubuntu Setup Complete!
+**You're about 25% done with the setup process.**
+
 # Install Tor
+**Estimated time: 10-15 minutes**
 **Last updated: July 2025**
 [Official website](https://support.torproject.org/apt/tor-deb-repo/)
 
@@ -492,7 +503,11 @@ If you delete this file, the next time bitcoind loads it will generate a new key
 
 
 ---
+## 🎯 Progress Checkpoint: Bitcoin Node Running!
+**You're about 50% done with the setup process.**
+
 # Install Electrs
+**Estimated time: 45-60 minutes (build time)**
 [Official website](https://github.com/romanz/electrs/tree/master?tab=readme-ov-file)
 
 "Electrs is a great low-resource, easy-to-install option for personal use - especially on resource-constrained hardware." - [Jameson Lopp](https://blog.casa.io/electrum-server-performance-report/)
@@ -636,7 +651,7 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
    bitcoin-cli getblockchaininfo | head
    ```
    
-9. Start Electrs initial sync. First sync can take 1-2 days depending on CPU/hardware.
+9. Start Electrs initial sync. **First sync can take 1-2 days depending on CPU/hardware.**
    ```bash
    electrs --log-filters INFO
    ```
@@ -645,7 +660,11 @@ I chose to compile electrs by statically linking to librocksdb, which has less d
    du ~/electrs/db
    ```
 ---
+## 🎯 Progress Checkpoint: Electrs Indexed!
+**You're about 75% done with the setup process.**
+
 # Install all three Bitcoin wallets: Electrum, Sparrow & Specter
+**Estimated time: 30-45 minutes**
 
 ## Prerequisites
 - Bitcoin Knots must be running and synced
@@ -736,6 +755,15 @@ sudo dpkg -i sparrow_2.2.3-1_amd64.deb
 
 ## Verification
 If the Network light in the bottom right corner of any wallet is blue, you're connected to your own node running behind Tor. It's now safe to interact with your real wallets.
+
+## 🎉 Congratulations! Setup Complete!
+**You've successfully built your own Sovereign Bitcoin Node!**
+
+Your node is now:
+- ✅ Running Bitcoin Knots behind Tor
+- ✅ Indexed with Electrs for fast wallet queries
+- ✅ Connected to three different wallet interfaces
+- ✅ Fully sovereign and private
 
 ---
 # Desktop Configuration
