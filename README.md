@@ -1,5 +1,5 @@
 # Sovereign - Personal Bitcoin Node
-last updated: 18th July 2025.
+last updated: 27th October 2025.
 
 **Bitcoin self-custody and sovereignty is for everyone - no third-party trust required. Free full node guide for non-technical users, regularly maintained and updated.**
 
@@ -65,13 +65,13 @@ Most entry level laptops should meet the above specifications. Just upgrade the 
 - Ubuntu 24.04 LTS
 - Bitcoin Knots 28.1
 - Tor
-- ProtonVPN
 - Electrs
 - Electrum 4.5.8
 - Specter Desktop
 - Sparrow 2.2.3
 
 (optional)
+- ProtonVPN
 - Brave Browser
 - Telegram Desktop
 
@@ -281,6 +281,7 @@ A quick solution for encrypted files/messages.
 Head over to [Bitcoin Knots](https://bitcoinknots.org/) and:
 - Download the latest Linux(tgz) 64 bit version and save to Downloads folder
 - Bitcoin Knots is a derivative of Bitcoin Core with enhanced features, more conservative policies, and additional privacy options
+- Bitcoin Knots uses the same command-line interface as Bitcoin Core (bitcoin-cli, bitcoin-qt, bitcoind)
 - Follow the verification instructions on the Bitcoin Knots website to verify your download using GPG signatures
 
 ## Complete install
@@ -495,21 +496,12 @@ If you delete this file, the next time bitcoind loads it will generate a new key
    sudo shutdown -r now
    ```
 
-## Verify Bitcoin Knots uses Tor. Option: 1
-1. Start Bitcoin Knots GUI 
+## Verify Bitcoin Knots is using Tor
+1. Check Bitcoin Knots network status using the command line:
    ```bash copy
-   bitcoin-qt
+   bitcoin-cli getnetworkinfo
    ```
-2. Once loaded enter the ```Network``` screen by pressing ```CTL+N```.
-3. Click on the ```Peers``` tab.
-   You should now see a list of all the Bitcoin peers that your node is connected too. Under the ```Network``` column all the row values should say ```Onion```, meaning you are only connected to    peers over the onion ntwork. 
-
-## Verify Bitcoin Knots uses Tor. Option: 2
-1. Check Bitcoin Knots ```NetworkInfo```. From the Bitcoin Knots GUI click 'Window' tab, 'Consol', then type the below command after the ```>``` and press enter.
-   ```bash copy
-   getnetworkinfo
-   ```
-2. Scroll up until you see the networks section. Your node is running behind Tor if the 'ipv4' and 'onion' networks have the below settings (there will also be other settings in each network group but they can be ignored):
+2. Look for the networks section in the output. Your node is running behind Tor if you see these settings:
    ```
    "name": "ipv4",
          "limited": true,
@@ -521,23 +513,7 @@ If you delete this file, the next time bitcoind loads it will generate a new key
          "limited": false,
          "reachable": true
    ```
-
-## Verify Bitcoin Knots uses Tor. Option: 3
-You will learn a lot about what Bitcoin Knots is doing during start-up and shut-down if you watch the debug.log file.
-
-1. Navigate to you main Bitcoin data-directory. 
-   ```bash copy
-   cd ~/.bitcoin
-   ```
-2. Ooen a new Terminal window, will will call this 'Terminal 1'. Activate tail on the Bitcoin Knots debug.log file with a grep on Tor.
-   ```bash copy
-   tail -f debug.log | grep tor
-   ```
-2. Now in a new Terminal window start bitcoind with debug set to Tor.
-    ```bash copy
-    bitcoind --daemon --debug=tor
-    ```
-3. Watch the debug file output printed in Terminal 1. You will see ```Tor: ADD_ONION successful``` and a lot of other Tor actions printed to the Terminal that Bitcoin Knots completed during start-up including starting a ```Tor control thread```, opening a ```Tor connection``` and finally connecting to the Tor network using your Tor encryption key.
+   This confirms that IPv4 is disabled and only Tor (onion) connections are active.
 
 
 ---
@@ -651,9 +627,6 @@ Run ```cfg_me man``` to see man page immediately or run ```cfg_me -o electrs.1 m
    # This example contains only the most important settings.
    # See docs or electrs man page for advanced settings.
    
-   # File where bitcoind stores the cookie, usually file .cookie in its datadir
-   #cookie_file = "/media/<USER>/<External_SSD_Name>/.cookie"
-
    # Use the below auth="USER:PASSWORD if you have RPC user:password set/active
    # in bitcoin.conf file.
    auth="<User>:<Password>"
@@ -1228,9 +1201,9 @@ Build a launchable Desktop icon called ```Electrum``` that when clicked will lau
 If you need personalized help implementing this guide, I offer private consultation services:
 
 **Services Available:**
-- **Quick Setup Review ($150/hour)** - Troubleshooting and configuration fixes
-- **Full Node Implementation ($300/session)** - Complete guided setup
-- **Advanced Configuration ($450/session)** - Lightning Network and advanced features
+- **Quick Review & Troubleshooting ($500/hour)** - 1-hour troubleshooting session
+- **Complete Sovereign Setup ($10,000/session)** - 2-3 hour comprehensive setup
+- **Enterprise-Grade Configuration ($12,500/session)** - 3-4 hour advanced setup
 
 **Benefits:**
 - 1-on-1 expert guidance
