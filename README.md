@@ -746,26 +746,6 @@ sudo dpkg -i sparrow_2.2.3-1_amd64.deb
 ## Verification
 If the Network light in the bottom right corner of any wallet is blue, you're connected to your own node running behind Tor. It's now safe to interact with your real wallets.
 
-
----
-# Hardware Wallet support
-For airgapped hardware wallets, no USB connection or UDEV rules are required as the devices are never connected to the computer.
-
-## Electrum HWW support
-[Reference Link](https://electrum.readthedocs.io/en/latest/hardware-linux.html)
-1. For electrum we just need to downgrade pip to allow installation of required dependencies for Electrum HWW support. Run:
-   ```bash copy
-   python3 -m pip uninstall pip && python3 -m pip install pip==22
-   ```
-2. Install dependencies
-   ```bash copy
-   python3 -m pip install hidapi btchip-python ecdsa ledger-bitcoin
-   ```
-3. Upgrade pip back to latest version
-   ```bash copy
-   sudo pip3 install --upgrade pip
-   ```
-   
 ---
 # Desktop Configuration
 
